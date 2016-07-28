@@ -8,6 +8,7 @@ from math import log
 binary_type = str
 range_func = xrange
 
+#key generation
 def check_prime(n, k=30):
     if n <= 3:
         return n == 2 or n == 3
