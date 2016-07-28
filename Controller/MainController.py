@@ -18,7 +18,6 @@ class MainController(object):
         thread.start_new_thread(Receiver.start(ip_address))
         MainController.command_control()
 
-
     @staticmethod
     def get_ip_address():
         import socket
@@ -36,24 +35,21 @@ class MainController(object):
         from Transaction import TransactionController
         from Network import Sender
 
-        while
-        cmd = raw_input('(t : send transaction, v : view ledgers, q : quit) >')
+        cmd = None
+        while cmd != 'q':
+            cmd = raw_input('(t : send transaction, v : view ledgers, q : quit) >')
 
-        # UI
-        if cmd == 't':
-            receiver_ip = raw_input('Receiver IP : ')
-            amount = raw_input('Amount : ')
-            message = raw_input('Message : ')
-            trx_json = TransactionController.create_transaction(MainController.myNode, receiver_ip, amount, message)
-            Sender.send(trx_json)
+            # UI
+            if cmd == 't':
+                receiver_ip = raw_input('Receiver IP : ')
+                amount = raw_input('Amount : ')
+                message = raw_input('Message : ')
+                trx_json = TransactionController.create_transaction(MainController.myNode, receiver_ip, amount, message)
+                Sender.send(trx_json)
 
-        elif cmd == 'v':
-            TransactionController.print_all_transaction()
+            elif cmd == 'v':
+                TransactionController.print_all_transaction()
 
-            elif cmd == 'q':
-            return 0
+        return 0
 
 MainController.start()
-
-
-
