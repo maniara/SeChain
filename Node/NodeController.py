@@ -5,30 +5,37 @@ def get_node(ip_address):
     import Node, json, os
     from KeyGenerator import generation_key_pair
     from DataStorage import FileController
-    gen_public_key, gen_private_key = generation_key_pair(2**256)
 
-    node = Node.Node(ip_address)
-    node.public_key = gen_public_key
-    node.private_key = gen_private_key
+    # Check node list (NodeInfo.txt)
+    if FileController.get_node(ip_address) is False:
 
-    json_node = {
-        'is_disabled' : False,
-        'public_key' : node.public_key,
-        'private_key' : node.private_key,
-        'ip_address' : node.ip_address
-    }
+        gen_public_key, gen_private_key = generation_key_pair(2**256)
 
-    new_json_node = json.dumps(json_node)
+        node = Node.Node(ip_address)
+        node.public_key = gen_public_key
+        node.private_key = gen_private_key
 
-    file_path = os.path.abspath(os.path.dirname(__file__))
-    file_path = file_path[:-4] + 'DataBase'
-    path_info = file_path + '\NodeInfo.txt'
+        json_node = {
+            'is_disabled' : False,
+            'public_key' : node.public_key,
+            'private_key' : node.private_key,
+            'ip_address' : node.ip_address
+        }
+
+        new_json_node = json.dumps(json_node)
+
+        file_path = os.path.abspath(os.path.dirname(__file__))
+        file_path = file_path[:-4] + 'DataBase'
+        path_info = file_path + '\NodeInfo.txt'
 
     # add node to file
+        FileController.write(path_info, new_json_node)
 
-    FileController.write(path_info, new_json_node)
+        return new_json_node
 
-    return new_json_node
+    else:
+        print("Node is already in the list")
+
 
 # # Add node to file
 # def add_node(node):
