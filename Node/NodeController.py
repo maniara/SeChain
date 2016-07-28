@@ -1,8 +1,5 @@
-
-# create new node
-# return JSON OBJECT
 def get_node(ip_address):
-    import Node, json, os
+    import Node, json, os, ast
     from KeyGenerator import generation_key_pair
     from DataStorage import FileController
 
@@ -21,7 +18,6 @@ def get_node(ip_address):
             'private_key' : node.private_key,
             'ip_address' : node.ip_address
         }
-
         new_json_node = json.dumps(json_node)
 
         file_path = os.path.abspath(os.path.dirname(__file__))
@@ -30,13 +26,12 @@ def get_node(ip_address):
 
     # add node to file
         FileController.write(path_info, new_json_node)
-
-        return new_json_node
+        return json_node
 
     else:
         print("Node is already in the list")
         existed_node = FileController.get_node(ip_address)
-        existed_node_json = json.dumps(existed_node)
+        existed_node_json = json.loads(existed_node)
         return existed_node_json
 
 

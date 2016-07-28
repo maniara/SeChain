@@ -7,15 +7,17 @@ class MainController(object):
 
     @staticmethod
     def start():
-        import thread
+        import thread, time
         from DataStorage import FileController
         from Network import Receiver
 
         ip_address = MainController.get_ip_address()
-        print ip_address
+        print "Your IP : ", ip_address
         MainController.set_my_node(ip_address)
         MainController.nodeList = FileController.get_node_list()
-        thread.start_new_thread(Receiver.start(ip_address))
+        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
+
+        time.sleep(1)
         MainController.command_control()
 
     @staticmethod
@@ -44,7 +46,7 @@ class MainController(object):
                 receiver_ip = raw_input('Receiver IP : ')
                 amount = raw_input('Amount : ')
                 message = raw_input('Message : ')
-                trx_json = TransactionController.create_transaction(MainController.myNode, receiver_ip, amount, message)
+                trx_json = TransactionController.create_transaction(MainController.myNode['public_key'], receiver_ip, amount, message)
                 Sender.send(trx_json)
 
             elif cmd == 'v':

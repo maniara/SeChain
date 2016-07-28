@@ -1,4 +1,4 @@
-def start(ip_address):
+def start(thread_name, ip_address):
     from socket import *
     port = 2001
     addr = (ip_address,port)

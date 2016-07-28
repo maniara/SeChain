@@ -6,19 +6,23 @@ ledger_file = 'Ledger.txt'
 
 
 def write(file_name, message):
-    f = open(file_name,'a')
+    import io
+    f = open(file_name, 'a')
     f.write(message)
     f.write('\n')
     f.close()
 
 
 def read_all_line(file_name):
-    f=open(file_name,'r')
-    line_list=[]
+    import io
+    f = open(file_name, 'r')
+    line_list = []
     while True:
         line = f.readline()
-        if not line : break
-        else : line_list.append(line)
+        if not line:
+            break
+        else:
+            line_list.append(line)
     f.close()
     return line_list
 
@@ -28,6 +32,14 @@ def add_transaction(trx):
 
 
 def get_ip_list():
+    import json
+    f = open(database_path+node_info_file, 'r')
+    ip_list = []
+    while True:
+        line = f.readline()
+        if not line: break
+        node_info = json.loads(line)
+        ip_list.append(node_info['ip_address'])
 
     return ip_list
 
@@ -38,13 +50,25 @@ def get_transaction_list():
 
 
 def get_node(ip_address):
-    import json
+    import json, ast
+    import yaml
 
     node_list = get_node_list()
     for node_string in node_list:
         node = json.loads(node_string)
-        if node.ip_address == ip_address:
+
+        if node['ip_address'] == ip_address:
             return node_string
-        else :
+        else:
             continue
     return False
+
+
+def get_node_list():
+    f = open(database_path + node_info_file, 'r')
+    node_list = []
+    while True:
+        line = f.readline()
+        if not line: break
+        node_list.append(line)
+    return node_list
