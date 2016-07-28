@@ -35,10 +35,10 @@ def get_node(ip_address):
 #     import os
 #
 #     new_line ='\n'
-#
-    file_path = os.path.abspath(os.path.dirname(__file__))
-    file_path = file_path[:-4] + 'DataBase'
-    path_info = file_path +'\NodeInfo.txt'
+# #
+#     file_path = os.path.abspath(os.path.dirname(__file__))
+#     file_path = file_path[:-4] + 'DataBase'
+#     path_info = file_path +'\NodeInfo.txt'
 #
 #     f = open(path_info, 'a')
 #     f.write(node)
