@@ -37,20 +37,3 @@ def get_node(ip_address):
         print("Node is already in the list")
 
 
-# # Add node to file
-# def add_node(node):
-#     import os
-#
-#     new_line ='\n'
-# #
-#     file_path = os.path.abspath(os.path.dirname(__file__))
-#     file_path = file_path[:-4] + 'DataBase'
-#     path_info = file_path +'\NodeInfo.txt'
-#
-#     f = open(path_info, 'a')
-#     f.write(node)
-#     f.write(new_line)
-#
-#     return True
-
-
