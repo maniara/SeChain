@@ -35,5 +35,9 @@ def get_node(ip_address):
 
     else:
         print("Node is already in the list")
+        existed_node = FileController.get_node(ip_address)
+        existed_node_json = json.dumps(existed_node)
+        return existed_node_json
+
 
 
