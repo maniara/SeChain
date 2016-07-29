@@ -12,7 +12,8 @@ def start(thread_name, ip_address):
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
-        print "Transaction received from ", sender_ip
+        print "\nTransaction received from ", sender_ip
+        print ">"
 
         while True:
             data = receive_socket.recv(buf_size)

@@ -29,6 +29,7 @@ def read_all_line(file_name):
 
 def add_transaction(trx):
     write(database_path + ledger_file, trx)
+    print "Transaction added"
 
 
 def get_ip_list():
