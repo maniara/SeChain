@@ -19,6 +19,7 @@ def start(thread_name, ip_address):
             data = receive_socket.recv(buf_size)
             if len(data) > 1:
                 FileController.add_transaction(data)
+                break
 
     tcp_socket.close()
     receive_socket.close()
