@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from __future__ import division, absolute_import, print_function
 from base64 import b64encode
 from fractions import gcd
@@ -75,7 +76,7 @@ def dataEncode(msg, privateKey, verbose=False):
         chunk = bMsg[start:start + chunkSize]
         chunk += b'\x00' * (chunkSize - len(chunk))
         plain = int(hexlify(chunk), 16)
-        coded = pow(plain, privateKey['exponent'],privateKey['modulus'])
+        coded = pow(plain, privateKey['exponent'], privateKey['modulus'])
         bcoded = unhexlify((outFmt % coded).encode())
         if verbose:
             print('Encode: ', chunkSize, chunk, plain, coded, bcoded)
@@ -93,13 +94,14 @@ def dataDecode(bcipher, publicKey, verbose=False):
     for start in range_func(0, len(bcipher), outChunk):
         bcoded = bcipher[start: start + outChunk]
         coded = int(hexlify(bcoded), 16)
-        plain = pow(coded, *publicKey)
+        plain = pow(coded, publicKey['exponent'], publicKey['modulus'])
+        mask = (1 << (chunkSize * 8)) - 1
+        plain &= mask
         chunk = unhexlify((outFmt % plain).encode())
 
         if verbose:
             print('Encode: ', chunkSize, chunk, plain, coded, bcoded)
         result.append(chunk)
-
     return b''.join(result).rstrip(b'\x00').decode('utf-8')
 
 def keyTostr(key):

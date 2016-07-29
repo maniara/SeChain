@@ -1,4 +1,3 @@
-#-*- coding: utf-8 -*-
 from CryptoController import dataEncode
 from CryptoController import dataDecode
 from Node import JsonEncoder
@@ -8,9 +7,12 @@ import Transaction
 
 def print_all_transaction():
     from DataStorage import FileController
+    import unicodedata
     transaction_list = FileController.get_transaction_list()
     for tr in transaction_list:
+
         load_list = json.loads(tr)
+        load_list['value'] = load_list['value'].encode('ascii')
         data = dataDecode(load_list['value'], load_list['senderpublickey'])
         value = json.loads(data)
         print "TimeStamp : " + load_list['timestamp'] + " SenderPubKey : " + load_list['senderpublickey']
