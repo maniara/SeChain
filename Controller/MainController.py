@@ -32,6 +32,7 @@ class MainController(object):
         from Node import NodeController
         MainController.myNode = NodeController.get_node(ip_address)
 
+
     @staticmethod
     def command_control():
         from Transaction import TransactionController
@@ -46,7 +47,7 @@ class MainController(object):
                 receiver_ip = raw_input('Receiver IP : ')
                 amount = raw_input('Amount : ')
                 message = raw_input('Message : ')
-                trx_json = TransactionController.create_transaction(MainController.myNode['public_key'], receiver_ip, amount, message)
+                trx_json = TransactionController.create_transaction(MainController.myNode['publick_key'], MainController.myNode['private_key'], receiver_ip, amount, message)
                 Sender.send(trx_json)
 
             elif cmd == 'v':

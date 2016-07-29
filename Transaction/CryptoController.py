@@ -1,4 +1,3 @@
-# coding=utf-8
 from __future__ import division, absolute_import, print_function
 from base64 import b64encode
 from fractions import gcd
@@ -65,7 +64,7 @@ Key = namedtuple('Key', 'exponent modulus')
 # encrypt with private key
 
 def dataEncode(msg, privateKey, verbose=False):
-    chunkSize = int(log(privateKey.modulus, 256))
+    chunkSize = int(log(privateKey['modulus'], 256))
     outChunk = chunkSize + 1
     outFmt = '%%0%dx' % (outChunk * 2, )
 
@@ -76,7 +75,7 @@ def dataEncode(msg, privateKey, verbose=False):
         chunk = bMsg[start:start + chunkSize]
         chunk += b'\x00' * (chunkSize - len(chunk))
         plain = int(hexlify(chunk), 16)
-        coded = pow(plain, *privateKey)
+        coded = pow(plain, privateKey['exponent'],privateKey['modulus'])
         bcoded = unhexlify((outFmt % coded).encode())
         if verbose:
             print('Encode: ', chunkSize, chunk, plain, coded, bcoded)
@@ -86,7 +85,7 @@ def dataEncode(msg, privateKey, verbose=False):
 
 
 def dataDecode(bcipher, publicKey, verbose=False):
-    chunkSize = int(log(publicKey.modulus, 256))
+    chunkSize = int(log(publicKey['modulus'], 256))
     outChunk = chunkSize + 1
     outFmt = '%%0%dx' % (chunkSize * 2, )
     result = []

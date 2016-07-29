@@ -1,5 +1,7 @@
+import JsonEncoder
+
 def get_node(ip_address):
-    import Node, json, os, ast
+    import Node, os, ast, json
     from KeyGenerator import generation_key_pair
     from DataStorage import FileController
 
@@ -18,7 +20,7 @@ def get_node(ip_address):
             'private_key' : node.private_key,
             'ip_address' : node.ip_address
         }
-        new_json_node = json.dumps(json_node)
+        new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
 
         file_path = os.path.abspath(os.path.dirname(__file__))
         file_path = file_path[:-4] + 'DataBase'
