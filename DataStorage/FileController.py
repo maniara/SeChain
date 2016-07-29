@@ -37,7 +37,8 @@ def get_ip_list():
     ip_list = []
     while True:
         line = f.readline()
-        if not line: break
+        if not line:
+            break
         node_info = json.loads(line)
         ip_list.append(node_info['ip_address'])
 

@@ -1,5 +1,6 @@
 def start(thread_name, ip_address):
     from socket import *
+    from DataStorage import FileController
     port = 2001
     addr = (ip_address,port)
     buf_size = 4000
@@ -15,7 +16,10 @@ def start(thread_name, ip_address):
 
         while True:
             data = receive_socket.recv(buf_size)
-            #file write
+            print data
+            if len(data) > 1:
+                break
+                FileController.add_transaction(data)
 
     tcp_socket.close()
     receive_socket.close()

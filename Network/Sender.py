@@ -14,7 +14,11 @@ def sendTransaction(ip_address, transaction):
 
     tcp_socket.close()
 
-def send( transaction):
+
+def send(transaction):
+    from DataStorage import FileController
+
+    address_list = FileController.get_ip_list()
     for addr in address_list:
         sendTransaction(addr, transaction)
 
