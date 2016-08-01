@@ -13,8 +13,7 @@ def print_all_transaction():
         load_list['value'] = load_list['value'].decode('string_escape')
         data = dataDecode(load_list['value'], load_list['senderpublickey'])
         value = json.loads(data)
-        print "TimeStamp : ", load_list['timestamp'], " SenderPubKey : ", load_list['senderpublickey']
-        print "SenderIP : ",  value['senderip'], " ReceiveIP : ", value['reveiverip'], " Amount : ", value['amount'], " Msg : ", value['message']
+        print "TimeStamp : ", load_list['timestamp'], "SenderIP : ",  value['senderip'], " ReceiverIP : ", value['reveiverip'], " Amount : ", value['amount'], " Msg : ", value['message']
 
 
 def create_transaction(public_key, private_key, target_ip, amount, msg):
