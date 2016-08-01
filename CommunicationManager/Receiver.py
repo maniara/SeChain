@@ -1,6 +1,7 @@
 def start(thread_name, ip_address):
+    import json
     from socket import *
-    from DataStorage import FileController
+    from StorageManager import FileController
     port = 2001
     addr = (ip_address,port)
     buf_size = 4000
@@ -17,8 +18,19 @@ def start(thread_name, ip_address):
 
         while True:
             data = receive_socket.recv(buf_size)
-            if len(data) > 1:
+            data_entity = json.loads(data)
+            print data_entity
+            if data_entity['type'] == 'T':
                 FileController.add_transaction(data)
+                break
+            elif data_entity['type'] == 'N':
+                from NodeManager import NodeController
+                NodeController.add_new_node(data_entity)
+                break
+            elif data_entity['type'] == 'B':
+                from BlockManager import BlockVerifyer
+                BlockVerifyer.verify(data_entity)
+                #add ledger
                 break
 
     tcp_socket.close()

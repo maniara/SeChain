@@ -1,4 +1,4 @@
-def sendTransaction(ip_address, transaction):
+def send(ip_address, message):
     from socket import *
     port = 2001
     buf_size = 4000
@@ -9,16 +9,16 @@ def sendTransaction(ip_address, transaction):
         print "Connection failed to "+ip_address
 
     else :
-        if tcp_socket.send(transaction) is False:
+        if tcp_socket.send(message) is False:
             print "Send fail to "+ip_address
 
     tcp_socket.close()
 
 
-def send(transaction):
-    from DataStorage import FileController
+def send_to_all_node(message):
+    from StorageManager import FileController
 
     address_list = FileController.get_ip_list()
     for addr in address_list:
-        sendTransaction(addr, transaction)
+        send(addr, message)
 

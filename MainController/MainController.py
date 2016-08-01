@@ -8,14 +8,27 @@ class MainController(object):
     @staticmethod
     def start():
         import thread, time
-        from DataStorage import FileController
-        from Network import Receiver
+        from StorageManager import FileController
+        from CommunicationManager import Receiver
+        from DataInitializer import DataInitializer
+        from BlockManager import BlockGenerator
 
+        #my ip check
         ip_address = MainController.get_ip_address()
         print "Your IP : ", ip_address
         MainController.set_my_node(ip_address)
+
+        #sync file database
+        DataInitializer.initialize_ledger()
+        DataInitializer.initialize_node_info()
+
+        #transaction listener start
         MainController.nodeList = FileController.get_node_list()
         thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
+
+        #check condition for creating block
+        thread.start_new_thread(BlockGenerator.check_status, ())
+
 
         time.sleep(1)
         MainController.command_control()
@@ -29,14 +42,14 @@ class MainController(object):
 
     @staticmethod
     def set_my_node(ip_address):
-        from Node import NodeController
+        from NodeManager import NodeController
         MainController.myNode = NodeController.get_node(ip_address)
 
 
     @staticmethod
     def command_control():
-        from Transaction import TransactionController
-        from Network import Sender
+        from TransactionManager import TransactionController
+        from CommunicationManager import Sender
 
         cmd = None
         while cmd != 'q':
@@ -48,7 +61,7 @@ class MainController(object):
                 amount = raw_input('Amount : ')
                 message = raw_input('Message : ')
                 trx_json = TransactionController.create_transaction(MainController.myNode['public_key'], MainController.myNode['private_key'], receiver_ip, amount, message)
-                Sender.send(trx_json)
+                Sender.send_to_all_node(trx_json)
 
             elif cmd == 'v':
                 TransactionController.print_all_transaction()
