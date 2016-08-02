@@ -20,7 +20,7 @@ class MainController(object):
 
         #sync file database
         DataInitializer.initialize_ledger()
-        DataInitializer.initialize_node_info()
+        DataInitializer.initialize_node_info(MainController.myNode)
 
         #transaction listener start
         MainController.nodeList = FileController.get_node_list()
@@ -28,7 +28,6 @@ class MainController(object):
 
         #check condition for creating block
         thread.start_new_thread(BlockGenerator.check_status, ())
-
 
         time.sleep(1)
         MainController.command_control()

@@ -2,7 +2,7 @@ import json
 
 class json_encoder(json.JSONEncoder):
     def encode(self, obj):
-
+        obj['type'] = str(obj['type'])
         obj['ip_address'] = str(obj['ip_address'])
         obj['public_key'] = obj['public_key']._asdict()
         obj['private_key'] = obj['private_key']._asdict()

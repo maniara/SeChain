@@ -1,10 +1,10 @@
 import JsonEncoder
-
+import os
+from StorageManager import FileController
 
 def get_node(ip_address):
-    import Node, os, ast, json
+    import Node, json
     from KeyGenerator import generation_key_pair
-    from StorageManager import FileController
 
     # Check node list (NodeInfo.txt)
     if FileController.get_node(ip_address) is False:
@@ -16,6 +16,7 @@ def get_node(ip_address):
         node.private_key = gen_private_key
 
         json_node = {
+            'type' : 'N',
             'is_disabled' : False,
             'public_key' : node.public_key,
             'private_key' : node.private_key,
@@ -23,8 +24,7 @@ def get_node(ip_address):
         }
         new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
 
-        file_path = os.path.abspath(os.path.dirname(__file__))
-        file_path = file_path[:-4] + 'DataBase'
+        file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
         path_info = file_path + '\NodeInfo.txt'
 
     # add node to file and send node to other nodes
@@ -40,13 +40,20 @@ def get_node(ip_address):
 
 
 def send_my_node_info(my_node):
-    from StorageManager import Sender
-    Sender.send(my_node)
+    from CommunicationManager import Sender
+    print "send node info"
+    Sender.send('163.239.27.32', my_node)
 
 
 def add_new_node(node_info_entity):
-    #todo : add node info into file
-    return true
+    # Parameter : data_entity(JSON object)
+    file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
+    path_info = file_path + '\NodeInfo.txt'
+
+    FileController.write(path_info, node_info_entity)
+    print "New node information is added"
+
+    return True
 
 
 
