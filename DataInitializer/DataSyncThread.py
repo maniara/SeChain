@@ -28,7 +28,7 @@ def request_node_info(thread_name, request_ip):
                     check_list = str(check_list)
                     print check_list
                     if check_list not in data:
-                        print "Sync"
+                        print "Syncronize Node"
                         NodeController.add_new_node(data)
                     else:
                         print "Already Sync"
