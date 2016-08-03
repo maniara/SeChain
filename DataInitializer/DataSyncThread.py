@@ -2,6 +2,7 @@
 def request_node_info(thread_name, request_ip):
     from socket import *
     from NodeManager import NodeController
+    from StorageManager import FileController
 
     port = 50007
     addr = (request_ip, port)
@@ -19,19 +20,28 @@ def request_node_info(thread_name, request_ip):
         # data : request sync node  ip address
         while True:
             data = receive_socket.recv(buf_size)
+
             try:
-                data = data[:-1]
-                if request_ip not in data:
-                    NodeController.add_new_node(data)
+                node_list = FileController.get_ip_list()
+
+                for check_list in node_list:
+                    check_list = str(check_list)
+                    print check_list
+                    if check_list not in data:
+                        print "Sync"
+                        NodeController.add_new_node(data)
+                    else:
+                        print "Already Sync"
+
                 break
             except:
-                print "EXCEPTION"
+                print ""
                 break
 
     tcp_socket.close()
     receive_socket.close()
 
-# waiting Request, response node Information
+# Waiting Request, response the node Information
 def response_node_info(thread_name, request_ip):
     from socket import *
     from StorageManager import FileController

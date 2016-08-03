@@ -53,7 +53,6 @@ def get_transaction_list():
 
 def get_node(ip_address):
     import json, ast
-    import yaml
 
     node_list = get_node_list()
     for node_string in node_list:

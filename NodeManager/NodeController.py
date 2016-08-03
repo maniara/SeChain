@@ -7,6 +7,7 @@ def get_node(ip_address):
     from KeyGenerator import generation_key_pair
 
     # Check node list (NodeInfo.txt)
+    # Create New Node and Send node information to SEZIP.
     if FileController.get_node(ip_address) is False:
 
         gen_public_key, gen_private_key = generation_key_pair(2**256)
@@ -32,6 +33,7 @@ def get_node(ip_address):
         send_my_node_info(new_json_node)
         return json_node
 
+    # Node exist
     else:
         print("Node is already in the list")
         existed_node = FileController.get_node(ip_address)
@@ -42,7 +44,7 @@ def get_node(ip_address):
 def send_my_node_info(my_node):
     from CommunicationManager import Sender
     print "send node info"
-    Sender.send('163.239.27.32', my_node)
+    Sender.send_sync('163.239.27.32', my_node)
 
 
 def add_new_node(node_info_entity):
