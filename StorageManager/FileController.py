@@ -90,3 +90,8 @@ def create_new_block(file_name, block_json):
     f = open(block_storage_path + file_name, 'w')
     f.write(block_json)
     f.close()
+
+
+def get_last_block():
+    '''return last block file contents'''
+    return last_block_file_name, last_block

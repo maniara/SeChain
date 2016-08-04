@@ -5,10 +5,13 @@ def check_status():
 def generate_block(last_transaction):
     from CommunicationManager import Sender
     from BlockManager import Block
-    '''get all temporary transactions'''
+    from StorageManager import FileController
+
+    transactions = [] '''get all temporary transactions'''
+    transactions.append(last_transaction)
     '''add last_transaction into transaction's array'''
     '''instance Block instance'''
-
-    block = Block("hash", all_temporary_transaction_array)
+    last_block_id, last_block = FileController.get_last_block()
+    block = Block(last_block_id, '''hashcode of last_block''', transactions)
     return block
 
