@@ -34,9 +34,11 @@ def start(thread_name, ip_address):
                     break
                 elif data_entity['type'] == 'B':
                     from BlockManager import BlockVerifyer
-                    BlockVerifyer.verify(data_entity)
-                    #add ledger
+                    if BlockVerifyer.verify(data_entity) is True:
+                        FileController.remove_all_transactions()
+                        FileController.create_new_block(data_entity['block_id'], data)
                     break
+
             except:
                 NodeController.add_new_node(data)
                 print "EXCEPTION"

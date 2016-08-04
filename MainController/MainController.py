@@ -49,10 +49,12 @@ class MainController(object):
     def command_control():
         from TransactionManager import TransactionController
         from CommunicationManager import Sender
+        from StorageManager import FileController
+        from BlockManager import BlockGenerator
 
         cmd = None
         while cmd != 'q':
-            cmd = raw_input('(t : send transaction, v : view ledgers, q : quit) >')
+            cmd = raw_input('(t : send transaction, v : view transaction buffer, q : quit) >')
 
             # UI
             if cmd == 't':
@@ -60,6 +62,9 @@ class MainController(object):
                 amount = raw_input('Amount : ')
                 message = raw_input('Message : ')
                 trx_json = TransactionController.create_transaction(MainController.myNode['public_key'], MainController.myNode['private_key'], receiver_ip, amount, message)
+                if FileController.get_number_of_transactions() == 9:
+                    block = BlockGenerator.generate_block(trx_json)
+                    Sender.send_to_all_node(json.dump(block))
                 Sender.send_to_all_node(trx_json)
 
             elif cmd == 'v':

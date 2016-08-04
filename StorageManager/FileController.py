@@ -1,8 +1,9 @@
 import os
 
 database_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
+block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
 node_info_file = 'NodeInfo.txt'
-ledger_file = 'Ledger.txt'
+ledger_file = 'Transactions.txt'
 
 
 def write(file_name, message):
@@ -73,3 +74,19 @@ def get_node_list():
         if not line: break
         node_list.append(line)
     return node_list
+
+
+def get_number_of_transactions():
+    return len(get_transaction_list())
+
+
+def remove_all_transactions():
+    f = open(database_path+ledger_file, 'w')
+    f.write("")
+    f.close()
+
+
+def create_new_block(file_name, block_json):
+    f = open(block_storage_path + file_name, 'w')
+    f.write(block_json)
+    f.close()
