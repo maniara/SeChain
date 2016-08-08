@@ -22,6 +22,8 @@ def send_to_all_node(message):
     for addr in address_list:
         send(addr, message)
 
+
+
 # Database Syncronization
 def send_sync(ip_address, message):
     from socket import *

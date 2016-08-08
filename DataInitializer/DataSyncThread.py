@@ -3,7 +3,7 @@ def request_node_info(thread_name, request_ip):
     from socket import *
     from NodeManager import NodeController
     from StorageManager import FileController
-
+    import sys
     port = 50007
     addr = (request_ip, port)
     buf_size = 4000
@@ -13,29 +13,27 @@ def request_node_info(thread_name, request_ip):
     tcp_socket.listen(5)
 
     print "Sync Thread starting...(REQUEST)"
-
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
 
         # data : request sync node  ip address
         while True:
             data = receive_socket.recv(buf_size)
-
+            sync_flag = False
             try:
                 node_list = FileController.get_ip_list()
 
-                for check_list in node_list:
-                    check_list = str(check_list)
-                    print check_list
-                    if check_list not in data:
-                        print "Syncronize Node"
-                        NodeController.add_new_node(data)
-                    else:
-                        print "Already Sync"
+                for outer_list in node_list:
+                    outer_list = str(outer_list)
+                    if outer_list in data:
+                        sync_flag = True
+
+                if sync_flag is False:
+                    NodeController.add_new_node(data)
 
                 break
-            except:
-                print ""
+            except :
+                print sys.exc_info()
                 break
 
     tcp_socket.close()

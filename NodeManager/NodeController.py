@@ -31,14 +31,14 @@ def get_node(ip_address):
     # add node to file and send node to other nodes
         FileController.write(path_info, new_json_node)
         send_my_node_info(new_json_node)
-        return json_node
+        return json_node, new_json_node
 
     # Node exist
     else:
         print("Node is already in the list")
         existed_node = FileController.get_node(ip_address)
         existed_node_json = json.loads(existed_node)
-        return existed_node_json
+        return existed_node_json, existed_node
 
 
 def send_my_node_info(my_node):

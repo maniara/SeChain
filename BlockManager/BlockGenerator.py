@@ -3,15 +3,17 @@ def check_status():
 
 
 def generate_block(last_transaction):
-    from CommunicationManager import Sender
     from BlockManager import Block
     from StorageManager import FileController
+    import hashlib
 
-    transactions = [] '''get all temporary transactions'''
-    transactions.append(last_transaction)
-    '''add last_transaction into transaction's array'''
-    '''instance Block instance'''
+    transactions = FileController.get_transaction_list()
+    transactions.append(last_transaction + "\n")
+
+    # last block -> hash
     last_block_id, last_block = FileController.get_last_block()
-    block = Block(last_block_id, '''hashcode of last_block''', transactions)
+    last_block_hash = hashlib.sha256(last_block).hexdigest()
+    block = Block.Block(last_block_id, last_block_hash, transactions)
+
     return block
 

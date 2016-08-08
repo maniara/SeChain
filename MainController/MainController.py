@@ -1,5 +1,6 @@
 class MainController(object):
     myNode = None
+    my_node_json = None
     nodeList = None
 
     def __init__(self):
@@ -20,7 +21,7 @@ class MainController(object):
 
         #sync file database
         DataInitializer.initialize_ledger()
-        DataInitializer.initialize_node_info(MainController.myNode)
+        DataInitializer.initialize_node_info(MainController.my_node_json)
 
         #transaction listener start
         MainController.nodeList = FileController.get_node_list()
@@ -42,7 +43,7 @@ class MainController(object):
     @staticmethod
     def set_my_node(ip_address):
         from NodeManager import NodeController
-        MainController.myNode = NodeController.get_node(ip_address)
+        MainController.myNode, MainController.my_node_json = NodeController.get_node(ip_address)
 
 
     @staticmethod
@@ -51,6 +52,7 @@ class MainController(object):
         from CommunicationManager import Sender
         from StorageManager import FileController
         from BlockManager import BlockGenerator
+        import json
 
         cmd = None
         while cmd != 'q':
@@ -62,10 +64,13 @@ class MainController(object):
                 amount = raw_input('Amount : ')
                 message = raw_input('Message : ')
                 trx_json = TransactionController.create_transaction(MainController.myNode['public_key'], MainController.myNode['private_key'], receiver_ip, amount, message)
-                if FileController.get_number_of_transactions() == 9:
+
+                if FileController.get_number_of_transactions() == 5:
                     block = BlockGenerator.generate_block(trx_json)
-                    Sender.send_to_all_node(json.dump(block))
-                Sender.send_to_all_node(trx_json)
+                    block_temp = json.dumps(block,  indent=4, default=lambda o: o.__dict__, sort_keys=True)
+                    Sender.send_to_all_node(block_temp)
+                else:
+                    Sender.send_to_all_node(trx_json)
 
             elif cmd == 'v':
                 TransactionController.print_all_transaction()

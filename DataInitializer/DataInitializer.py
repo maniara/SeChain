@@ -1,7 +1,8 @@
 def initialize_node_info(my_node):
     #todo: Get Node information from online-node
     from CommunicationManager import Sender
-    import socket, thread
+    from NodeManager import NodeController
+    import socket, thread, json
     import DataSyncThread
 
     print "Syncronization starting..."
@@ -21,6 +22,7 @@ def initialize_node_info(my_node):
     else:
         Sender.send_sync(fetch_node_ip, request_ip)
         thread.start_new_thread(DataSyncThread.request_node_info, ("SyncThrd2", request_ip))
+        Sender.send(fetch_node_ip, my_node)
 
 
     return False

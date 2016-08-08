@@ -7,7 +7,7 @@ ledger_file = 'Transactions.txt'
 
 
 def write(file_name, message):
-    import io
+
     f = open(file_name, 'a')
     f.write(message)
     f.write('\n')
@@ -15,7 +15,7 @@ def write(file_name, message):
 
 
 def read_all_line(file_name):
-    import io
+
     f = open(file_name, 'r')
     line_list = []
     while True:
@@ -39,7 +39,10 @@ def get_ip_list():
     ip_list = []
     while True:
         line = f.readline()
+        line = line[:-1]
         if not line:
+            break
+        if line =="":
             break
         node_info = json.loads(line)
         ip_list.append(node_info['ip_address'])
@@ -53,7 +56,7 @@ def get_transaction_list():
 
 
 def get_node(ip_address):
-    import json, ast
+    import json
 
     node_list = get_node_list()
     for node_string in node_list:
@@ -71,7 +74,10 @@ def get_node_list():
     node_list = []
     while True:
         line = f.readline()
-        if not line: break
+        if not line:
+            break
+        if line == "":
+            break
         node_list.append(line)
     return node_list
 
@@ -93,5 +99,13 @@ def create_new_block(file_name, block_json):
 
 
 def get_last_block():
-    '''return last block file contents'''
+
+    block_list = []
+    for (path, dir, files) in os.walk(block_storage_path):
+        block_list = files
+
+    last_block_file_name = block_list[-1]
+    last_block_tx_list = read_all_line(block_storage_path + last_block_file_name)
+    last_block = "\n".join(last_block_tx_list)
+
     return last_block_file_name, last_block
