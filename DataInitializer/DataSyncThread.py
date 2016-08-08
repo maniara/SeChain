@@ -29,7 +29,7 @@ def request_node_info(thread_name, request_ip):
                         sync_flag = True
 
                 if sync_flag is False:
-                    NodeController.add_new_node(data)
+                    NodeController.add_new_node(data.replace("\n", ""))
 
                 break
             except :

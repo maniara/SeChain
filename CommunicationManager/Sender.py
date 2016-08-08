@@ -19,9 +19,9 @@ def send_to_all_node(message):
     from StorageManager import FileController
 
     address_list = FileController.get_ip_list()
+
     for addr in address_list:
         send(addr, message)
-
 
 
 # Database Syncronization
