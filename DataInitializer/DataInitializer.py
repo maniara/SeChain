@@ -24,7 +24,6 @@ def initialize_node_info(my_node):
         Sender.send(fetch_node_ip, my_node)
 
 def initialize_block():
-    #todo: ip list -> node connection check -> block height check
     from CommunicationManager import ConnectionChecker
     from StorageManager import FileController
 
