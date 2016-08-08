@@ -20,8 +20,8 @@ class MainController(object):
         MainController.set_my_node(ip_address)
 
         #sync file database
-        DataInitializer.initialize_ledger()
         DataInitializer.initialize_node_info(MainController.my_node_json)
+        DataInitializer.initialize_block()
 
         #transaction listener start
         MainController.nodeList = FileController.get_node_list()

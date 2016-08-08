@@ -2,12 +2,10 @@ def start(thread_name, ip_address):
     import json, sys
     from socket import *
     from StorageManager import FileController
-    from NodeManager import NodeController
 
     port = 2001
     addr = (ip_address, port)
     buf_size = 8000
-    sync_flag = False
 
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)

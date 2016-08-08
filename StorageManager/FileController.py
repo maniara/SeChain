@@ -109,3 +109,7 @@ def get_last_block():
     last_block = "\n".join(last_block_tx_list)
 
     return last_block_file_name, last_block
+
+def get_block_height():
+
+    return len(os.walk(block_storage_path).next()[2])
