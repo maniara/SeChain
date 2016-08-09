@@ -56,6 +56,17 @@ def start(thread_name, ip_address):
                         FileController.remove_all_transactions()
                         FileController.create_new_block(data_entity['block_id'], data)
                     break
+                elif data_entity['type'] == 'R':
+                    from Sender import send
+                    print "Request Block Sync"
+                    data_entity['type'] = 'S'
+                    send(data_entity['ip_address'],data_entity)
+
+                elif data_entity['type'] == 'S':
+                    import os
+                    for root, dirs, files in os.walk('./DataStroage'):
+                        for file in files:
+                            print file
 
             except:
                 print sys.exc_info()
