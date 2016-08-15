@@ -58,13 +58,12 @@ def start(thread_name, ip_address):
                     break
 
                 elif data_entity['type'] == 'C':
-                    print 'acc CCC'
                     from StorageManager import FileController
                     import Sender
-                    last_file = FileController.get_last_file()
-                    print 'my_last_file = ' + last_file
-                    print 'last_file = ' + data_entity['last_file']
                     while True:
+                        last_file = FileController.get_last_file()
+                        print 'my_last_file = ' + last_file
+                        print 'last_file = ' + data_entity['last_file']
                         if last_file == data_entity['last_file']: #block sync
                            json_data = {
                                 'type' : 'Q',
