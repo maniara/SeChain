@@ -6,7 +6,6 @@ def request_node_info(thread_name, request_ip):
     from BlockManager import BlockSync
     import sys
 
-    BlockSync.block_check()
     port = 50007
     addr = (request_ip, port)
     buf_size = 4000

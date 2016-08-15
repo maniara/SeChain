@@ -5,7 +5,6 @@ def initialize_node_info(my_node):
     import DataSyncThread
 
     print "Syncronization starting..."
-    print ''
 
     # sezip : 163.239.27.32
     fetch_node_ip = '163.239.27.32'
@@ -19,9 +18,9 @@ def initialize_node_info(my_node):
     # Other Node
     # Send request ip information
     else:
-        Sender.send_sync(fetch_node_ip, request_ip)
+        #Sender.send_sync(fetch_node_ip, request_ip)
         thread.start_new_thread(DataSyncThread.request_node_info, ("SyncThrd2", request_ip))
-        Sender.send(fetch_node_ip, my_node)
+        #Sender.send(fetch_node_ip, my_node)
 
 def initialize_block():
     from CommunicationManager import ConnectionChecker
