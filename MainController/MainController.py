@@ -13,6 +13,7 @@ class MainController(object):
         from CommunicationManager import Receiver
         from DataInitializer import DataInitializer
         from BlockManager import BlockGenerator
+        from BlockManager import BlockSync
 
         #my ip check
         ip_address = MainController.get_ip_address()
@@ -31,7 +32,7 @@ class MainController(object):
         thread.start_new_thread(BlockGenerator.check_status, ())
 
         #check block sync
-        thread.start_new_thread(BlockSync.block_sync,())
+        thread.start_new_thread(BlockSync.block_check,())
 
         time.sleep(1)
         MainController.command_control()

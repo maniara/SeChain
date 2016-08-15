@@ -1,3 +1,3 @@
-def block_sync():
+def block_check():
     from CommunicationManager import Sender
     Sender.block_sync()
