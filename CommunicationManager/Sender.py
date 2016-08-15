@@ -52,7 +52,6 @@ def block_sync():
     fetch_node_ip = '163.239.27.32'
     json_node, new_json_nodes = NodeController.get_node(MainController.get_ip_address())
     last_file = FileController.get_last_file()
-    print 'last_file' + last_file
     json_nodes = {
         'type': 'C',
         'last_file' : last_file,

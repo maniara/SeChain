@@ -64,31 +64,47 @@ def start(thread_name, ip_address):
                     last_file = FileController.get_last_file()
                     print 'my_last_file = ' + last_file
                     print 'last_file = ' + data_entity['last_file']
-                    if last_file == data_entity['last_file']: #block sync
-                        json_data = {
-                            'type' : 'Q',
-                            'is_disabled': False,
-                            'public_key': data_entity['public_key'],
-                            'private_key': data_entity['private_key'],
-                            'ip_address': data_entity['ip_address']
-                        }
-                        json_dump = json.dumps(json_data)
-                        Sender.send(data_entity['ip_address'],json_dump)
+                    while True:
+                        if last_file == data_entity['last_file']: #block sync
+                           json_data = {
+                                'type' : 'Q',
+                                'is_disabled': False,
+                                'public_key': data_entity['public_key'],
+                                'private_key': data_entity['private_key'],
+                                'ip_address': data_entity['ip_address']
+                            }
+                           json_dump = json.dumps(json_data)
+                           Sender.send(data_entity['ip_address'],json_dump)
+                           break
 
-                    else: #block non sync
-                        import os
-                        block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
-                        for root, dirs, files in os.walk(block_storage_path):
-                            for file in files:
-                                if file <= data_entity['last_file']:
-                                    continue
-                                # send block
-                                else:
-                                    print file
+                        else: #block non sync
+                            import os
+                            block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
+                            for root, dirs, files in os.walk(block_storage_path):
+                                for file in files:
+                                    if file <= data_entity['last_file']:
+                                        continue
+                                    # send block
+                                    else:
+                                        f = open(file, 'r')
+                                        json_data = {
+                                            'type' : 'W',
+                                            'file_name' : file,
+                                            'message' : f.read()
+                                        }
+                                        f.close()
+                                        datas = json.dumps(json_data)
+                                        Sender.send(data_entity['ip_address'],datas)
 
 
                 elif data_entity['type'] == 'Q':
                     print 'Block Sync Complete'
+
+                elif data_entity['type'] == 'W':
+                    from StorageManager import FileController
+                    print 'WWWW'
+                    FileController.write(data_entity['file_name'], data_entity['message'])
+
 
             except:
                 print sys.exc_info()
