@@ -92,6 +92,8 @@ def start(thread_name, ip_address):
                                             'file_name' : file,
                                             'message' : f.read()
                                         }
+                                        print 'file_name' + file
+                                        print 'message' + f.read()
                                         f.close()
                                         datas = json.dumps(json_data)
                                         Sender.send(data_entity['ip_address'],datas)
@@ -102,7 +104,7 @@ def start(thread_name, ip_address):
 
                 elif data_entity['type'] == 'W':
                     from StorageManager import FileController
-                    print 'WWWW'
+                    print data_entity['file_name'] + ' ' + data_entity['message']
                     FileController.write(data_entity['file_name'], data_entity['message'])
 
 
