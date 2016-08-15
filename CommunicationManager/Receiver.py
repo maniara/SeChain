@@ -67,6 +67,7 @@ def start(thread_name, ip_address):
                     for root, dirs, files in os.walk('./DataStroage'):
                         for file in files:
                             print file
+
                 elif data_entity['type'] == 'C':
                     from StorageManager import FileController
                     import Sender
