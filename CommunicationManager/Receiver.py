@@ -86,7 +86,8 @@ def start(thread_name, ip_address):
                                         continue
                                     # send block
                                     else:
-                                        f = open(file, 'r')
+                                        block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
+                                        f = open(block_storage_path + file, 'r')
                                         json_data = {
                                             'type' : 'W',
                                             'file_name' : file,
@@ -105,7 +106,8 @@ def start(thread_name, ip_address):
                 elif data_entity['type'] == 'W':
                     from StorageManager import FileController
                     print data_entity['file_name'] + ' ' + data_entity['message']
-                    FileController.write(data_entity['file_name'], data_entity['message'])
+                    block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
+                    FileController.write(block_storage_path + data_entity['file_name'], data_entity['message'])
 
 
             except:
