@@ -98,6 +98,11 @@ def create_new_block(file_name, block_json):
     f.write(block_json)
     f.close()
 
+def get_last_file():
+    import os
+    for root, dirs, files in os.walk(block_storage_path):
+        print
+    return files[-1]
 
 def get_last_block():
 

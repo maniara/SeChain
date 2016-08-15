@@ -67,6 +67,31 @@ def start(thread_name, ip_address):
                     for root, dirs, files in os.walk('./DataStroage'):
                         for file in files:
                             print file
+                elif data_entity['type'] == 'C':
+                    from StorageManager import FileController
+                    import Sender
+                    last_file = FileController.get_last_file()
+                    if last_file == data_entity['last_file']: #block sync
+                        json_data = {
+                            'type' : 'Q',
+                            'ip_address' : ip_address
+                        }
+                        json_dump = json.dumps(json_data)
+                        Sender.send(data_entity['ip_address'],json_dump)
+                    else: #block non sync
+                        import os
+                        block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
+                        for root, dirs, files in os.walk(block_storage_path):
+                            for file in files:
+                                if file <= data_entity['last_file']:
+                                    continue
+                                # send block
+                                else:
+                                    print file
+
+
+                elif data_entity['type'] == 'Q':
+                    print 'Block Sync Complete'
 
             except:
                 print sys.exc_info()

@@ -41,3 +41,22 @@ def send_sync(ip_address, message):
             print "Send fail to "+ip_address
 
     tcp_socket.close()
+
+def block_sync():
+    from NodeManager import NodeController
+    from MainController import MainController
+    from NodeManager import JsonEncoder
+    from BlockManager import BlockSync
+    import json
+
+    fetch_node_ip = '163.239.27.32'
+    json_node, new_json_nodes = NodeController.get_node(MainController.MainController.get_ip_address())
+    node = json.load(json_node)
+    last_file = BlockSync.get_last_file()
+    json_nodes = {
+        'type': 'C',
+        'last_file' : last_file,
+        'ip_address': node['ip_address']
+    }
+    new_json_node = json.dumps(json_nodes, cls=JsonEncoder.json_encoder)
+    send(fetch_node_ip,new_json_node)

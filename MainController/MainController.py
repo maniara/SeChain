@@ -30,6 +30,9 @@ class MainController(object):
         #check condition for creating block
         thread.start_new_thread(BlockGenerator.check_status, ())
 
+        #check block sync
+        thread.start_new_thread(BlockSync.block_sync,())
+
         time.sleep(1)
         MainController.command_control()
 
