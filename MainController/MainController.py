@@ -28,7 +28,6 @@ class MainController(object):
         MainController.nodeList = FileController.get_node_list()
         thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
 
-        BlockSync.block_check()
         #check condition for creating block
         thread.start_new_thread(BlockGenerator.check_status, ())
 
