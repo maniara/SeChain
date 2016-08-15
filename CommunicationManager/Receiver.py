@@ -88,13 +88,14 @@ def start(thread_name, ip_address):
                                     else:
                                         block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
                                         f = open(block_storage_path + file, 'r')
+                                        mess = f.read()
                                         json_data = {
                                             'type' : 'W',
                                             'file_name' : file,
-                                            'message' : f.read()
+                                            'message' : mess
                                         }
                                         print 'file_name : ' + file
-                                        print 'message : ' + f.read()
+                                        print 'message : ' + mess
                                         f.close()
                                         datas = json.dumps(json_data)
                                         Sender.send(data_entity['ip_address'],datas)
