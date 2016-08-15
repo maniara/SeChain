@@ -46,13 +46,13 @@ def block_sync():
     from NodeManager import NodeController
     from MainController import MainController
     from NodeManager import JsonEncoder
-    from BlockManager import BlockSync
+    from StorageManager import FileController
     import json
 
     fetch_node_ip = '163.239.27.32'
-    json_node, new_json_nodes = NodeController.get_node(MainController.MainController.get_ip_address())
+    json_node, new_json_nodes = NodeController.get_node(MainController.get_ip_address())
     node = json.load(json_node)
-    last_file = BlockSync.get_last_file()
+    last_file = FileController.get_last_file()
     json_nodes = {
         'type': 'C',
         'last_file' : last_file,
