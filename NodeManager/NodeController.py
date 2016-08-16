@@ -44,7 +44,7 @@ def get_node(ip_address):
 def send_my_node_info(my_node):
     from CommunicationManager import Sender
     print "send node info"
-    Sender.send_sync('163.239.27.32', my_node)
+    Sender.send('163.239.27.32', my_node,50007)
 
 
 def add_new_node(node_info_entity):

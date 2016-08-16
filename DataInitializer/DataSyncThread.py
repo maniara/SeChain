@@ -5,7 +5,6 @@ def request_node_info(thread_name, request_ip):
     from StorageManager import FileController
     from BlockManager import BlockSync
     import sys
-
     port = 50007
     addr = (request_ip, port)
     buf_size = 4000
@@ -41,30 +40,6 @@ def request_node_info(thread_name, request_ip):
     tcp_socket.close()
     receive_socket.close()
 
-    # block sync
-    from NodeManager import NodeController
-
-    ip_address = socket.gethostbyname(socket.gethostname())
-
-    my_node,my_json_node = NodeController.get_node(ip_address)
-    json_node = {
-        'type': 'R',
-        'is_disabled': False,
-        'public_key': my_node['public_key'],
-        'private_key': my_node['private_key'],
-        'ip_address': my_node['ip_address']
-    }
-    # for nodes in node_list:
-    #    from CommunicationManager import Sender
-    #    import json
-    #    data = json.dumps(json_node)
-    #    Sender.send(nodes, data)
-
-    from CommunicationManager import Sender
-    import json
-    data = json.dumps(json_node)
-    Sender.send('163.239.27.32', data)
-
 # Waiting Request, response the node Information
 def response_node_info(thread_name, request_ip):
     from socket import *
@@ -90,7 +65,7 @@ def response_node_info(thread_name, request_ip):
             try:
                 node_list = FileController.get_node_list()
                 for iter in node_list:
-                    Sender.send_sync(data, iter)
+                    Sender.send(data, iter,50007)
                 break
             except:
                 print "EXCEPT"

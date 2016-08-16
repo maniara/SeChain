@@ -20,16 +20,16 @@ class MainController(object):
         print "Your IP : ", ip_address
         MainController.set_my_node(ip_address)
 
+        # transaction listener start
+        MainController.nodeList = FileController.get_node_list()
+        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
+
         #sync file database
         DataInitializer.initialize_node_info(MainController.my_node_json)
         #DataInitializer.initialize_block()
 
-        #transaction listener start
-        MainController.nodeList = FileController.get_node_list()
-        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
-
         #check condition for creating block
-        thread.start_new_thread(BlockGenerator.check_status, ())
+        #thread.start_new_thread(BlockGenerator.check_status, ())
 
         time.sleep(3)
         MainController.command_control()

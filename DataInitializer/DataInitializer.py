@@ -19,7 +19,8 @@ def initialize_node_info(my_node):
     # Send request ip information
     else:
         from BlockManager import BlockSync
-        BlockSync.block_check()
+        thread.start_new_thread(BlockSync.block_check,(request_ip,))
+        Sender.block_sync()
         #Sender.send_sync(fetch_node_ip, request_ip)
         thread.start_new_thread(DataSyncThread.request_node_info, ("SyncThrd2", request_ip))
         #Sender.send(fetch_node_ip, my_node)
