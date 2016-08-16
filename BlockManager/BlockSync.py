@@ -30,9 +30,6 @@ def block_check(thread_name,ip_address):
                     if last_file == data_entity['last_file']:  # block sync
                         json_data = {
                             'type': 'Q',
-                            'is_disabled': False,
-                            'public_key': data_entity['public_key'],
-                            'private_key': data_entity['private_key'],
                             'ip_address': data_entity['ip_address']
                         }
                         json_dump = json.dumps(json_data)
@@ -58,15 +55,9 @@ def block_check(thread_name,ip_address):
                                     f.close()
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas,10654)
-                        json_data = {
-                            'type' : 'Q'
-                        }
-                        datas = json.dumps(json_data)
-                        Sender.send(data_entity['ip_address'],datas,10654)
                         break
 
                 elif data_entity['type'] == 'Q':
-                    from MainController import MainController
                     print 'Block Sync Complete'
                     break
 
