@@ -14,6 +14,7 @@ class MainController(object):
         from DataInitializer import DataInitializer
         from BlockManager import BlockGenerator
         from BlockManager import BlockSync
+        from CommunicationManager import Sender
 
         #my ip check
         ip_address = MainController.get_ip_address()
@@ -22,8 +23,9 @@ class MainController(object):
 
         # transaction listener start
         MainController.nodeList = FileController.get_node_list()
+        thread.start_new_thread(BlockSync.block_check, ("BlockSync", ip_address))
         thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
-
+        Sender.block_sync()
         #sync file database
         DataInitializer.initialize_node_info(MainController.my_node_json)
         #DataInitializer.initialize_block()

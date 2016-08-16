@@ -1,10 +1,10 @@
-def block_check(ip_address):
+def block_check(thread_name,ip_address):
     from CommunicationManager import Sender
     import json, sys
     from socket import *
     from StorageManager import FileController
 
-    port = 30005
+    port = 10654
     addr = (ip_address, port)
     buf_size = 10000
 
@@ -24,7 +24,7 @@ def block_check(ip_address):
                 print 'receive' + data_entity['type']
                 if data_entity['type'] == 'C':
                     from StorageManager import FileController
-                    import Sender
+                    from CommunicationManager import Sender
                     last_file = FileController.get_last_file()
                     print 'my_last_file = ' + last_file
                     print 'last_file = ' + data_entity['last_file']
@@ -37,7 +37,7 @@ def block_check(ip_address):
                             'ip_address': data_entity['ip_address']
                         }
                         json_dump = json.dumps(json_data)
-                        Sender.send(data_entity['ip_address'], json_dump)
+                        Sender.send(data_entity['ip_address'], json_dump,10654)
 
                     else:  # block non sync
                         import os
@@ -58,7 +58,7 @@ def block_check(ip_address):
                                     print 'message : ' + mess
                                     f.close()
                                     datas = json.dumps(write_file)
-                                    Sender.send(data_entity['ip_address'], datas)
+                                    Sender.send(data_entity['ip_address'], datas,10654)
                         break
 
                 elif data_entity['type'] == 'Q':

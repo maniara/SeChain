@@ -1,4 +1,4 @@
-def send(ip_address, message,port):
+def send(ip_address, message, port):
     from socket import *
     buf_size = 10000
     receiver_addr = (ip_address, port)
@@ -20,7 +20,7 @@ def send_to_all_node(message):
     address_list = FileController.get_ip_list()
 
     for addr in address_list:
-        send(addr, message,2001)
+        send(addr, message, 2001)
 
 def block_sync():
     from NodeManager import NodeController
@@ -38,4 +38,4 @@ def block_sync():
         'ip_address': json_node['ip_address']
     }
     new_json_node = json.dumps(json_nodes)
-    send(fetch_node_ip,new_json_node,30005)
+    send(fetch_node_ip,new_json_node, 10654)
