@@ -15,13 +15,12 @@ def block_check(thread_name,ip_address):
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
-
         while True:
             data = receive_socket.recv(buf_size)
             sync_flag = False
             try:
                 data_entity = json.loads(data)
-                print 'receive' + data_entity['type']
+
                 if data_entity['type'] == 'C':
                     from StorageManager import FileController
                     from CommunicationManager import Sender
@@ -59,6 +58,11 @@ def block_check(thread_name,ip_address):
                                     f.close()
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas,10654)
+                        json_data = {
+                            'type' : 'Q'
+                        }
+                        datas = json.dumps(json_data)
+                        Sender.send(data_entity['ip_address'],datas,10654)
                         break
 
                 elif data_entity['type'] == 'Q':
@@ -67,8 +71,6 @@ def block_check(thread_name,ip_address):
                     break
 
                 elif data_entity['type'] == 'W':
-                    print "W"
-                    print data_entity
                     try:
                         FileController.write(FileController.block_storage_path + data_entity['file_name'], data_entity['message'])
                     except:

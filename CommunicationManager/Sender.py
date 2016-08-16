@@ -24,13 +24,12 @@ def send_to_all_node(message):
 
 def block_sync():
     from NodeManager import NodeController
-    from MainController import MainController
-    from NodeManager import JsonEncoder
     from StorageManager import FileController
     import json
-
+    import socket
+    ip_address = socket.gethostbyname(socket.gethostname())
     fetch_node_ip = '163.239.27.32'
-    json_node, new_json_nodes = NodeController.get_node(MainController.get_ip_address())
+    json_node, new_json_nodes = NodeController.get_node(ip_address)
     last_file = FileController.get_last_file()
     json_nodes = {
         'type': 'C',

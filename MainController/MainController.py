@@ -25,11 +25,9 @@ class MainController(object):
         MainController.nodeList = FileController.get_node_list()
         thread.start_new_thread(BlockSync.block_check, ("BlockSync", ip_address))
         thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
-        Sender.block_sync()
         #sync file database
         DataInitializer.initialize_node_info(MainController.my_node_json)
         #DataInitializer.initialize_block()
-
         #check condition for creating block
         #thread.start_new_thread(BlockGenerator.check_status, ())
 
@@ -77,6 +75,8 @@ class MainController(object):
 
             elif cmd == 'v':
                 TransactionController.print_all_transaction()
+            else:
+                continue
 
         return 0
 
