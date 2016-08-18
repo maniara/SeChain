@@ -21,17 +21,18 @@ def run(contractAddr,functionName,args):
 
     #load states & run
     contractAddress = CONTRACT_ADDR+contractAddr
-    fContract = open(contractAddress,'rb')
+    fContract = open(contractAddress,'r')
     contract = pickle.load(fContract)
+    print 'pickle load'
     method = getattr(contract,functionName)
     result = method(*args)
     fContract.close()
 
     #save state
-    fContract = open(contractAddress,'wb')
+    fContract = open(contractAddress,'w')
     pickle.dump(contract,fContract)
     fContract.close()
-    fContract = open(contractAddress,'rb')
+    fContract = open(contractAddress,'r')
     state = fContract.read()
     fContract.close()
 
