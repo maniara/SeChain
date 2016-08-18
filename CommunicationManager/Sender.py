@@ -20,7 +20,10 @@ def send_to_all_node(message):
     address_list = FileController.get_ip_list()
 
     for addr in address_list:
-        send(addr, message, 2001)
+        try:
+            send(addr, message, 2001)
+        except:
+            continue
 
 def block_sync():
     from NodeManager import NodeController
