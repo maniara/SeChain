@@ -48,11 +48,16 @@ def start(thread_name, ip_address):
 
                 elif data_entity['type'] == 'B':
                     print "Block received"
-
+                    print('5')
                     from BlockManager import BlockVerifyer
+
+                    print('a')
                     if BlockVerifyer.verify(data_entity) is True:
+                        print('2')
                         FileController.remove_all_transactions()
+                        print('3')
                         FileController.create_new_block(data_entity['block_id'], data)
+                        print('4')
                     break
 
 
