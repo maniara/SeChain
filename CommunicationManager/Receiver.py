@@ -21,7 +21,7 @@ def start(thread_name, ip_address):
             try:
                 data_entity = json.loads(data)
                 print 'receive' + data_entity['type']
-                if data_entity['type'] == 'T':
+                if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip
                     print ">"
 

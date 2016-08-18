@@ -5,3 +5,4 @@ class ValueData(object):
         self.receiver_ip = receiver
         self.amount = amount
         self.message = msg
+        
