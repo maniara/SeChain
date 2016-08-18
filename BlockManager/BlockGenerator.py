@@ -18,6 +18,6 @@ def generate_block(last_transaction):
     # last block -> hash
     last_block_id, last_block = FileController.get_last_block()
     last_block_hash = hashlib.sha256(last_block).hexdigest()
-    block = Block.Block(last_block_id, last_block_hash, transactions,{})
+    block = Block.Block(last_block_id, last_block_hash, transactions,'contract_states')
 
     return block
