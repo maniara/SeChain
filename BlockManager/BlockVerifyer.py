@@ -1,4 +1,5 @@
 import json
+from SmartContracts import ContractRunner
 def verify(block_string):
     block = json.loads(block_string)
     transactions = block['transactions']
