@@ -1,8 +1,8 @@
 import pickle
 import hashlib
 import importlib
-import sources.Example
-CONTRACT_ADDR = "./contracts/"
+import os
+CONTRACT_ADDR = os.path.dirname(os.path.dirname(__file__)) + '\contracts'+ '\\'
 SOURCE_ADDR = "sources."
 
 def makeContract(time_stamp,sourceName,args):
@@ -24,7 +24,7 @@ def run(contractAddr,functionName,args):
     fContract = open(contractAddress,'rb')
     contract = pickle.load(fContract)
     method = getattr(contract,functionName)
-    result = method(args)
+    result = method(*args)
     fContract.close()
 
     #save state

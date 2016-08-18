@@ -102,7 +102,7 @@ class MainController(object):
                 contractAddr = raw_input('contractAddr : ')
                 function = raw_input('functionName : ')
                 args = raw_input('Args (split by ' ') : ')
-                contract_datas = {'contractAddr' : source ,'function' : function,  'args' : args}
+                contract_datas = {'contractAddr' : contractAddr ,'function' : function,  'args' : args}
 
                 trx_json = TransactionController.create_transaction(MainController.myNode['public_key'],
                                                                     MainController.myNode['private_key'], cmd,
