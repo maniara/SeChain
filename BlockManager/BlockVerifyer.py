@@ -3,7 +3,6 @@ from SmartContracts import ContractRunner
 def verify(block_string):
     block = json.loads(block_string)
     transactions = block['transactions']
-    if transactions[-1] ==
     contract_states = transaction_verify(transactions)
     #TODO varifty
     '''for k,v in contract_states :
