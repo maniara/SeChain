@@ -14,7 +14,7 @@ def makeContract(time_stamp,sourceName,args):
     fContract = open(CONTRACT_ADDR +contractAddr,'rb')
     state = fContract.read()
     fContract.close()
-
+    print {'contractAddr' :  contractAddr ,'state' : state}
     return {'contractAddr' :  contractAddr ,'state' : state}
 
 def run(contractAddr,functionName,args):
@@ -35,7 +35,7 @@ def run(contractAddr,functionName,args):
     fContract = open(contractAddress,'r')
     state = fContract.read()
     fContract.close()
-
+    print {'result' : result,'state' : state}
     return {'result' : result,'state' : state}
 
 #makeContract('aaaaa','aaa',(1,2))
