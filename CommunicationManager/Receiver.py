@@ -50,8 +50,6 @@ def start(thread_name, ip_address):
                     print "Block received"
 
                     from BlockManager import BlockVerifyer
-                    FileController.create_new_block(data_entity['block_id'], data)
-
                     if BlockVerifyer.verify(data_entity) is True:
                         FileController.remove_all_transactions()
                         FileController.create_new_block(data_entity['block_id'], data)
