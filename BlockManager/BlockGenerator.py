@@ -18,7 +18,7 @@ def generate_block(last_transaction):
         transaction = json.loads(transaction)
 
         if transaction['type'] == 'ct':
-            result = ContractRunner.makeContract(transaction[],transaction['contract_datas']['source'],transaction['contract_datas']['args'])
+            result = ContractRunner.makeContract(transaction['time_stamp'],transaction['contract_datas']['source'],transaction['contract_datas']['args'])
             contract_states[result['contractAddr']] = result['state']
 
         if transaction['type'] == 'rt':
