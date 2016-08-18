@@ -18,11 +18,13 @@ def generate_block(last_transaction):
         transaction = json.loads(transaction)
 
         if transaction['type'] == 'ct':
-            result = ContractRunner.makeContract(transaction['time_stamp'],transaction['contract_datas']['source'],transaction['contract_datas']['args'])
+            args = transaction['contract_datas']['args'].spilt()
+            result = ContractRunner.makeContract(transaction['time_stamp'],transaction['contract_datas']['source'],args)
             contract_states[result['contractAddr']] = result['state']
 
         if transaction['type'] == 'rt':
-            result = ContractRunner.run(transaction['contract_datas']['contractAddr'],transaction['contract_datas']['fucntion'],transaction['contract_datas']['args'])
+            args = transaction['contract_datas']['args'].spilt()
+            result = ContractRunner.run(transaction['contract_datas']['contractAddr'],transaction['contract_datas']['fucntion'],args)
             contract_states[transaction['contract_datas']['contractAddr']] = result['state']
 
     # last block -> hash

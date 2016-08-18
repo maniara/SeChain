@@ -6,9 +6,8 @@ CONTRACT_ADDR = "./contracts/"
 SOURCE_ADDR = "sources."
 
 def makeContract(time_stamp,sourceName,args):
-
-    contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(args)
-    contractAddr = hashlib.sha256(time_stamp).hexdigest()
+    contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(*args)
+    contractAddr = time_stamp
     fContract = open(CONTRACT_ADDR +contractAddr,'wb')
     pickle.dump(contract,fContract)
     fContract.close()
@@ -37,3 +36,6 @@ def run(contractAddr,functionName,args):
     fContract.close()
 
     return {'result' : result,'state' : state}
+
+#makeContract('aaaaa','aaa',(1,2))
+#print(run('aaaaa','add','20'))

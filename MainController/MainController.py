@@ -70,7 +70,7 @@ class MainController(object):
             elif cmd == 'ct':
                 receiver_ip , amount, message = receive_user_data()
                 source = raw_input('Soruce Name : ')
-                args = raw_input('Args (split by ,) : ')
+                args = raw_input('Args (split by ' ') : ')
                 contract_datas = {'source' : source , 'args' : args}
                 makeTransaction(cmd,receiver_ip,amount,message,contract_datas)
 
@@ -78,7 +78,7 @@ class MainController(object):
                 receiver_ip , amount, message = receive_user_data()
                 contractAddr = raw_input('contractAddr : ')
                 function = raw_input('functionName : ')
-                args = raw_input('Args (split by ,) : ')
+                args = raw_input('Args (split by ' ') : ')
                 contract_datas = {'contractAddr' : source ,'function' : function,  'args' : args}
                 makeTransaction(cmd,receiver_ip,amount,message,contract_datas)
 
