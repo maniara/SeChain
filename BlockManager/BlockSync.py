@@ -68,5 +68,4 @@ def block_check(thread_name,ip_address):
                         print "write error"
                         break
             except:
-                print sys.exc_info()
                 break

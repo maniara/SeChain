@@ -98,6 +98,14 @@ def create_new_block(file_name, block_json):
     f.write(block_json)
     f.close()
 
+def save_my_block(block_json):
+    create_new_block('a_my_block',block_json)
+
+def get_my_block():
+    f = open(block_storage_path + 'a_my_block', 'r')
+    block = f.read()
+    f.close()
+    return block
 def get_last_file():
     import os
     for root, dirs, files in os.walk(block_storage_path):
