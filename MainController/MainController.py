@@ -1,51 +1,52 @@
 class MainController(object):
-    myNode = None
-    my_node_json = None
-    nodeList = None
 
     def __init__(self):
         return 0
 
     @staticmethod
-    def start():
+    def initiate_node():
         import thread, time
         from StorageManager import FileController
         from CommunicationManager import Receiver
         from DataInitializer import DataInitializer
         from BlockManager import BlockGenerator
-        from BlockManager import BlockSync
+        from BlockManager import BlockSynchronizer
         from CommunicationManager import Sender
 
         #my ip check
-        ip_address = MainController.get_ip_address()
-        print "Your IP : ", ip_address
-        MainController.set_my_node(ip_address)
+        MainController.set_my_node()
+        print ("Have got node information")
+        SeChainFrame.console_text.SetLabel("Have got node information")
 
-        # transaction listener start
-        MainController.nodeList = FileController.get_node_list()
-        thread.start_new_thread(BlockSync.block_check, ("BlockSync", ip_address))
-        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
-        #sync file database
+
+        # sync blocks
+        thread.start_new_thread(BlockSynchronizer.sync_blocks, ("BlockSync"))
+        # sync node list
         DataInitializer.initialize_node_info(MainController.my_node_json)
-        #DataInitializer.initialize_block()
-        #check condition for creating block
-        #thread.start_new_thread(BlockGenerator.check_status, ())
 
         time.sleep(3)
         MainController.command_control()
 
     @staticmethod
-    def get_ip_address():
-        import socket
+    def node_start():
+        import NodeInformation
 
-        ip_address = socket.gethostbyname(socket.gethostname())
-        return ip_address
+        #node listener start
+        NodeInformation.nodeList = FileController.get_node_list()
+        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
+
 
     @staticmethod
-    def set_my_node(ip_address):
-        from NodeManager import NodeController
-        MainController.myNode, MainController.my_node_json = NodeController.get_node(ip_address)
+    def get_ip_address():
+        import socket
+        import NodeInformation
+        NodeInformation.my_ip_address = socket.gethostbyname(socket.gethostname())
+        return NodeInformation.my_ip_address
 
+    @staticmethod
+    def set_my_node():
+        from NodeManager import NodeController
+        NodeInformation.myNode, NodeInformation.my_node_json = NodeController.get_node()
 
     @staticmethod
     def command_control():
@@ -141,4 +142,4 @@ def makeTransaction(tx_type,receiver_ip,amount,message,contract_datas):
 
 
 '''
-MainController.start()
+#MainController.start()

@@ -6,19 +6,18 @@ def initialize_node_info(my_node):
 
     print "Syncronization starting..."
 
-    # sezip : 163.239.27.32
-    fetch_node_ip = '163.239.27.32'
+    trust_node_ip = NodeInformation.trust_node_ip
     request_ip = socket.gethostbyname(socket.gethostname())
 
     # Node is SEZIP
     # Response ip information
-    if request_ip == fetch_node_ip:
+    if request_ip == trust_node_ip:
         thread.start_new_thread(DataSyncThread.response_node_info, ("SyncThrd", request_ip))
 
     # Other Node
     # Send request ip information
     else:
-        from BlockManager import BlockSync
+        from BlockManager import BlockSynchronizer
         Sender.block_sync()
         #Sender.send_sync(fetch_node_ip, request_ip)
         thread.start_new_thread(DataSyncThread.request_node_info, ("SyncThrd2", request_ip))

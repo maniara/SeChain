@@ -2,17 +2,19 @@ import JsonEncoder
 import os
 from StorageManager import FileController
 
-def get_node(ip_address):
+def get_node():
     import Node, json
+    import NodeInformation
     from KeyGenerator import generation_key_pair
 
     # Check node list (NodeInfo.txt)
     # Create New Node and Send node information to SEZIP.
-    if FileController.get_node(ip_address) is False:
+    if FileController.get_node(NodeInformation.my_ip_address) is False:
+        print "Joining SeChain"
 
         gen_public_key, gen_private_key = generation_key_pair(2**256)
 
-        node = Node.Node(ip_address)
+        node = Node.Node(NodeInformation.my_ip_address)
         node.public_key = gen_public_key
         node.private_key = gen_private_key
 
@@ -25,11 +27,10 @@ def get_node(ip_address):
         }
         new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
 
-        file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
-        path_info = file_path + '\NodeInfo.txt'
-
-    # add node to file and send node to other nodes
-        FileController.write(path_info, new_json_node)
+        #Dont need to regist my nodelocal file
+        #file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
+        #path_info = file_path + '\NodeInfo.txt'
+        #FileController.write(path_info, new_json_node)
         send_my_node_info(new_json_node)
         return json_node, new_json_node
 
@@ -42,9 +43,10 @@ def get_node(ip_address):
 
 
 def send_my_node_info(my_node):
+    import NodeInformation
     from CommunicationManager import Sender
     print "send node info"
-    Sender.send('163.239.27.32', my_node,50007)
+    Sender.send(NodeInformation.trust_node_ip, my_node, 50007)
 
 
 def add_new_node(node_info_entity):

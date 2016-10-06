@@ -25,13 +25,15 @@ def send_to_all_node(message):
         except:
             continue
 
+#다른 노드에게 나의 마지막 파일을 보내서 나의 블록이 최종인지 확인
 def block_sync():
     from NodeManager import NodeController
     from StorageManager import FileController
+    import NodeInformation
     import json
     import socket
     ip_address = socket.gethostbyname(socket.gethostname())
-    fetch_node_ip = '163.239.27.32'
+    trust_node_ip = NodeInformation.trust_node_ip
     json_node, new_json_nodes = NodeController.get_node(ip_address)
     last_file = FileController.get_last_file()
     json_nodes = {
@@ -40,4 +42,4 @@ def block_sync():
         'ip_address': json_node['ip_address']
     }
     new_json_node = json.dumps(json_nodes)
-    send(fetch_node_ip,new_json_node, 10654)
+    send(trust_node_ip, new_json_node, 10654)

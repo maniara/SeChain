@@ -1,4 +1,4 @@
-def block_check(thread_name,ip_address):
+def sync_blocks(thread_name,ip_address):
     from CommunicationManager import Sender
     import json, sys
     from socket import *
@@ -59,6 +59,7 @@ def block_check(thread_name,ip_address):
 
                 elif data_entity['type'] == 'Q':
                     print 'Block Sync Complete'
+                    NodiInfomation.block_sync = True
                     break
 
                 elif data_entity['type'] == 'W':
