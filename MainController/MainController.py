@@ -30,10 +30,13 @@ class MainController(object):
     @staticmethod
     def node_start():
         import NodeInformation
+        import thread
+        from StorageManager import FileController
+        from CommunicationManager import Receiver
 
         #node listener start
         NodeInformation.nodeList = FileController.get_node_list()
-        thread.start_new_thread(Receiver.start, ("Thread-1", ip_address))
+        thread.start_new_thread(Receiver.start, ("Listener_Thread",NodeInformation.my_ip_address))
 
 
     @staticmethod
