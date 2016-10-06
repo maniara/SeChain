@@ -1,0 +1,9 @@
+* install modules
+wspython for ui : pip.exe install --upgrade  --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
+
+* message type code
+# C: request last block
+# Q: your last block is correct
+# W: block for sync
+# B: new block
+# T: new transaction
