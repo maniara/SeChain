@@ -1,7 +1,7 @@
 myNode = None #node entity
 my_node_json = None   #node entity written in json
 nodeList = None   #all peer(node) list of se-chain
-trust_node_ip = "163.239.27.31"
+trust_node_ip = "163.239.27.32"
 my_ip_address = None
 node_sync = False
 block_sync = False

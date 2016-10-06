@@ -47,9 +47,9 @@ class SeChainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.start_sechain, id=3)
 
         #start
-        trust_start_button = wx.Button(self, 3, "*. Start Trust Node (it this is trust node)")
-        vbox.Add(trust_start_button, 3, wx.EXPAND)
-        self.Bind(wx.EVT_BUTTON, self.start_trust_node, id=3)
+        trust_start_button = wx.Button(self, 4, "*. Start Trust Node (it this is trust node)")
+        vbox.Add(trust_start_button, 4, wx.EXPAND)
+        self.Bind(wx.EVT_BUTTON, self.start_trust_node, id=4)
 
         self.SetSizer(vbox)
         self.Center()
@@ -84,10 +84,10 @@ class SeChainFrame(wx.Frame):
     def start_trust_node(self, event):
         import NodeInformation
         if NodeInformation.my_ip_address == NodeInformation.trust_node_ip :
-            print "start trust node"
+            self.write_console("start trust node")
             MainController.node_start()
         else:
-            print "IP and trust node IP is not same"
+            self.write_console("This IP and trust node IP is not same")
 
 class MyApp(wx.App):
     def OnInit(self):
