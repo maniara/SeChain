@@ -1,5 +1,5 @@
 import wx
-from MainController import MainController
+from MainController.MainController import MainController
 
 
 class SeChainFrame(wx.Frame):
@@ -58,7 +58,7 @@ class SeChainFrame(wx.Frame):
         vbox.Add(self.console_panel, 1, wx.EXPAND)
 
     def set_trust_node_text(self):
-        import NodeInformation
+        from MainController import NodeInformation
 
         my_ip = NodeInformation.trust_node_ip
 
@@ -82,7 +82,7 @@ class SeChainFrame(wx.Frame):
         MainController.initiate_node()
 
     def start_trust_node(self, event):
-        import NodeInformation
+        from MainController import NodeInformation
         if NodeInformation.my_ip_address == NodeInformation.trust_node_ip :
             self.write_console("start trust node")
             MainController.node_start()
