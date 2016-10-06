@@ -46,7 +46,7 @@ def send_my_node_info(my_node):
     import NodeInformation
     from CommunicationManager import Sender
     print "send node info"
-    Sender.send(NodeInformation.trust_node_ip, my_node, 50007)
+    Sender.send(NodeInformation.trust_node_ip, my_node, NodeInformation.port)
 
 
 def add_new_node(node_info_entity):

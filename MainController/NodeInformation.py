@@ -5,6 +5,7 @@ trust_node_ip = "163.239.27.32"
 my_ip_address = None
 node_sync = False
 block_sync = False
+port = 50007
 
 # type direction
 # C: request last block

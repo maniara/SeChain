@@ -1,5 +1,6 @@
 def send(ip_address, message, port):
     from socket import *
+    print "Sending "+ message + " to "+ip_address
     buf_size = 10000
     receiver_addr = (ip_address, port)
     tcp_socket =socket(AF_INET, SOCK_STREAM)
@@ -25,7 +26,7 @@ def send_to_all_node(message):
         except:
             continue
 
-#다른 노드에게 나의 마지막 파일을 보내서 나의 블록이 최종인지 확인
+#check whether this node has last block
 def block_sync():
     from NodeManager import NodeController
     from StorageManager import FileController
