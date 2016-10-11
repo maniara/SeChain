@@ -25,7 +25,7 @@ class MainFrame(wx.Frame):
 
         # console
         self.console_panel = wx.Panel(self, -1)
-        self.console_text = wx.StaticText(self.console_panel, 1, "Console", (30, 15), (100, 15), style=wx.LEFT)
+        self.console_text = wx.StaticText(self.console_panel, 9, "Console", (30, 15), (500, 15), style=wx.LEFT)
 
         # Welcome message
         vbox = wx.BoxSizer(wx.VERTICAL)

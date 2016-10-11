@@ -23,7 +23,14 @@ class MainController(object):
 
 
         # sync blocks
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronizing now")
         BlockSynchronizer.sync_blocks()
+
+        while(True):
+           if(NodeInformation.block_sync == True):
+                break
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronized")
+
         # sync node list
         #DataInitializer.initialize_node_info(MainController.my_node_json)
 
