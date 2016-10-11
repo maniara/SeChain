@@ -1,0 +1,13 @@
+{
+    "block_id": "B20160819095802", 
+    "contract_states": {
+        "20160819095647": "ccopy_reg\n_reconstructor\np0\n(csources.Point\nContract\np1\nc__builtin__\nobject\np2\nNtp3\nRp4\n(dp5\nS'users'\np6\n(dp7\nVsypark\np8\nI3000000\nssS'pointName'\np9\nVSeCoin\np10\nsb."
+    }, 
+    "previous_block_hash": "e0362cae3c697437831298999c537c80d4811b553b517f4ea5659b5f1b3a8f82", 
+    "previous_block_id": "B20160819095647", 
+    "time_stamp": "20160819095802", 
+    "transactions": [
+        "{\"sender_public_key\": {\"modulus\": 5031559169455571800169729229255599600246852012580229567149157113307723938894796964718058770328693414471547356321345316140439523770600401594296280236992291, \"exponent\": 4567017607838728561105374494627712537995191013450261046706818020189334261535699765044470528085912027818816280559972334503158548064269831114801089917271873}, \"time_stamp\": \"20160819095802\", \"message\": \"<I\\\\xa6\\\\xec\\\\xc3\\\\xe8g \\\\x98\\\\xf3rG\\\\xca\\\\x0b5$2\\\\xbei(\\\\x93S\\\\xef\\\\x12\\\\x95\\\\xe6y\\\\x8a\\\\x98+\\\\xbd#\\\\x9e\\\\r\\\\xcc\\\\xe5&\\\\xe9\\\\xc4i\\\\x99\\\\x85`&\\\\n\\\\xe4\\\\xe4\\\\x9fo\\\\xbc\\\\xd1F\\\\x14\\\\xa34\\\\x8c\\\\xabk\\\\x1b\\\\x9e2!\\\\xb8\\\\xba8X\\\\xded8Z\\\\xb7o{9\\\\xf3P\\\\xa7=\\\\xdd\\\\xb6V4\\\\xb9V\\\\xb3\\\\xe8\\\\xf9<K\\\\x9fv\\\\xcc00\\\\xf2\\\\x03Y\\\\xb7\\\\xd6\\\\xf2\\\\xb9(\\\\x0cF\\\\xd3\\\\x92\\\\xbfi!m\\\\xbc\\\\xc3\\\\xa8\\\\x07\\\\x94\\\\xec\\\\xb2\\\\x00\\\\x92#\\\\xfa<\\\\xb6\\\\xab/B(\\\\x9d\", \"type\": \"rt\", \"contract_datas\": {\"function\": \"add_point\", \"args\": \"sypark 3000000\", \"contractAddr\": \"20160819095647\"}}\n"
+    ], 
+    "type": "B"
+}

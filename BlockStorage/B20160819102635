@@ -1,0 +1,13 @@
+{
+    "block_id": "B20160819102635", 
+    "contract_states": {
+        "20160819102635": "ccopy_reg\n_reconstructor\np0\n(csources.Point\nContract\np1\nc__builtin__\nobject\np2\nNtp3\nRp4\n(dp5\nS'users'\np6\n(dp7\nsS'pointName'\np8\nVhappy_point\np9\nsb."
+    }, 
+    "previous_block_hash": "0b381d3c92bb1c6baa407a6aef1e7e12e51cdf27808bb76bb0b08159a3f38e68", 
+    "previous_block_id": "B20160819102325", 
+    "time_stamp": "20160819102635", 
+    "transactions": [
+        "{\"sender_public_key\": {\"modulus\": 5031559169455571800169729229255599600246852012580229567149157113307723938894796964718058770328693414471547356321345316140439523770600401594296280236992291, \"exponent\": 4567017607838728561105374494627712537995191013450261046706818020189334261535699765044470528085912027818816280559972334503158548064269831114801089917271873}, \"time_stamp\": \"20160819102635\", \"message\": \"T\\\\xa1\\\\xa3\\\\xca_T\\\\x92fo\\\\x13\\\\x8b\\\\xc9\\\\x1b4j\\\\xa8\\\\t\\\\x18\\\\xe1$\\\\xf3\\\\x98\\\\xa0\\\\xaf\\\\xda\\\\xcb|8\\\\\\\\\\\\x84\\\\x06\\\\xc2}z5\\\\xd5}E\\\\x98T\\\\xa2K\\\\xcf3O}y\\\\xb3\\\\xbd\\\\xbb\\\\x83H\\\\xc1\\\\xd8\\\\xf8H\\\\'([\\\\xb9\\\\x82=N\\\\xa0G\\\\x0c\\\\xe2\\\\xa6\\\\xc2\\\\xb1b\\\\xa4\\\\xdb\\\\xce\\\\xf7xH\\\\xd1\\\\x8df}\\\\x0f\\\\x8f\\\\x0c\\\\x02\\\\xcd\\\\xe3%\\\\xcbY\\\\xd1\\\\x14\\\\x91\\\\x07R\\\\xfd\\\\xe4\\\\x04\\\\x14j\\\\xbd\\\\n\\\\x03d\\\\x7f\\\\x82\\\\x04\\\\x08b\\\\xa7\\\\x0cY+]\\\\x1eE\\\\xfd\\\\xeb\\\\x02N\\\\xe3u\\\\xdf\\\\x8b\\\\x83#01\", \"type\": \"ct\", \"contract_datas\": {\"source\": \"Point\", \"args\": \"happy_point\"}}\n"
+    ], 
+    "type": "B"
+}
