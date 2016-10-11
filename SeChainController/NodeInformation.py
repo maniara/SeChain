@@ -6,6 +6,7 @@ my_ip_address = None
 node_sync = False
 block_sync = False
 port = 50007
+ui_frame = None
 
 # type direction
 # C: request last block

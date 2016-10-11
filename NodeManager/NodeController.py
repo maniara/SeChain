@@ -4,12 +4,12 @@ from StorageManager import FileController
 
 def get_node():
     import Node, json
-    import NodeInformation
+    from SeChainController import NodeInformation
     from KeyGenerator import generation_key_pair
 
     # Check node list (NodeInfo.txt)
     # Create New Node and Send node information to SEZIP.
-    if FileController.get_node(NodeInformation.my_ip_address) is False:
+    if FileController.get_node() is False:
         print "Joining SeChain"
 
         gen_public_key, gen_private_key = generation_key_pair(2**256)
@@ -37,7 +37,7 @@ def get_node():
     # Node exist
     else:
         print("Node is already in the list")
-        existed_node = FileController.get_node(ip_address)
+        existed_node = FileController.get_node()
         existed_node_json = json.loads(existed_node)
         return existed_node_json, existed_node
 

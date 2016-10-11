@@ -1,3 +1,5 @@
+from SeChainController import NodeInformation
+
 class MainController(object):
 
     def __init__(self):
@@ -8,24 +10,25 @@ class MainController(object):
         import thread, time
         from StorageManager import FileController
         from CommunicationManager import Receiver
-        from DataInitializer import DataInitializer
+        from NodeInitializer import DataInitializer
         from BlockManager import BlockGenerator
-        from BlockManager import BlockSynchronizer
+        from NodeInitializer import BlockSynchronizer
         from CommunicationManager import Sender
+        from SeChainUI import MainUI
 
         #my ip check
         MainController.set_my_node()
         print ("Have got node information")
-        SeChainFrame.console_text.SetLabel("Have got node information")
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Have got node information")
 
 
         # sync blocks
-        thread.start_new_thread(BlockSynchronizer.sync_blocks, ("BlockSync"))
+        BlockSynchronizer.sync_blocks()
         # sync node list
-        DataInitializer.initialize_node_info(MainController.my_node_json)
+        #DataInitializer.initialize_node_info(MainController.my_node_json)
 
-        time.sleep(3)
-        MainController.command_control()
+        #time.sleep(3)
+        #MainController.command_control()
 
     @staticmethod
     def node_start():
@@ -49,6 +52,7 @@ class MainController(object):
     @staticmethod
     def set_my_node():
         from NodeManager import NodeController
+        import NodeInformation
         NodeInformation.myNode, NodeInformation.my_node_json = NodeController.get_node()
 
     @staticmethod

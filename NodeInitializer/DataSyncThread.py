@@ -3,7 +3,7 @@ def request_node_info(thread_name, request_ip):
     from socket import *
     from NodeManager import NodeController
     from StorageManager import FileController
-    from BlockManager import BlockSynchronizer
+    from DataInitializer import BlockSynchronizer
     import sys
     port = 50007
     addr = (request_ip, port)

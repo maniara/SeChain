@@ -1,6 +1,6 @@
 import os
 
-database_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
+database_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
 block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
 node_info_file = 'NodeInfo.txt'
 ledger_file = 'Transactions.txt'
@@ -56,14 +56,15 @@ def get_transaction_list():
     return line_list
 
 
-def get_node(ip_address):
+def get_node():
     import json
+    from SeChainController import NodeInformation
 
     node_list = get_node_list()
     for node_string in node_list:
         node = json.loads(node_string)
 
-        if node['ip_address'] == ip_address:
+        if node['ip_address'] == NodeInformation.my_ip_address:
             return node_string
         else:
             continue

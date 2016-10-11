@@ -25,22 +25,3 @@ def send_to_all_node(message):
             send(addr, message, 2001)
         except:
             continue
-
-#check whether this node has last block
-def block_sync():
-    from NodeManager import NodeController
-    from StorageManager import FileController
-    import NodeInformation
-    import json
-    import socket
-    ip_address = socket.gethostbyname(socket.gethostname())
-    trust_node_ip = NodeInformation.trust_node_ip
-    json_node, new_json_nodes = NodeController.get_node(ip_address)
-    last_file = FileController.get_last_file()
-    json_nodes = {
-        'type': 'C',
-        'last_file' : last_file,
-        'ip_address': json_node['ip_address']
-    }
-    new_json_node = json.dumps(json_nodes)
-    send(trust_node_ip, new_json_node, 10654)

@@ -1,13 +1,26 @@
 import wx
-from MainController.MainController import MainController
+from SeChainController.MainController import MainController
+from SeChainController import NodeInformation
 
+class MainApp(wx.App):
+    def OnInit(self):
+        frame = MainFrame()
+        frame.drow_frame(None, -1, 'Se-Chain')
+        frame.Show(True)
+        NodeInformation.ui_frame = frame
+        self.SetTopWindow(frame)
+        return True
 
-class SeChainFrame(wx.Frame):
+class MainFrame(wx.Frame):
     trust_node_panel = None
     console_panel = None
     console_text = ""
 
-    def __init__(self, parent, id, title):
+    def __init__(self):
+        return None
+
+
+    def drow_frame(self, parent, id, title):
         wx.Frame.__init__(self, parent, id, title, wx.DefaultPosition, wx.Size(500, 250))
 
         # console
@@ -26,7 +39,7 @@ class SeChainFrame(wx.Frame):
         wx.StaticText(ip_panel, 1, "Your IP Address:"+ip_address, (30, 30), style=wx.LEFT)
         vbox.Add(ip_panel, 1, wx.EXPAND)
 
-    # Setting Trust Node Box
+        # Setting Trust Node Box
         trust_node_box = wx.BoxSizer(wx.HORIZONTAL)
         self.trust_node_panel = wx.Panel(self, -1)
         self.set_trust_node_text()
@@ -47,7 +60,7 @@ class SeChainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.start_sechain, id=3)
 
         #start
-        trust_start_button = wx.Button(self, 4, "*. Start Trust Node (it this is trust node)")
+        trust_start_button = wx.Button(self, 4, "*. Start Trust Node (if this is trust node)")
         vbox.Add(trust_start_button, 4, wx.EXPAND)
         self.Bind(wx.EVT_BUTTON, self.start_trust_node, id=4)
 
@@ -58,7 +71,7 @@ class SeChainFrame(wx.Frame):
         vbox.Add(self.console_panel, 1, wx.EXPAND)
 
     def set_trust_node_text(self):
-        from MainController import NodeInformation
+        from SeChainController import NodeInformation
 
         my_ip = NodeInformation.trust_node_ip
 
@@ -76,7 +89,7 @@ class SeChainFrame(wx.Frame):
         self.write_console("Trust node is set")
 
     def write_console(self, message):
-        self.console_text.SetLabel(message)
+        NodeInformation.ui_frame.console_text.SetLabel(message)
 
     def start_sechain(self, event):
         MainController.initiate_node()
@@ -88,13 +101,3 @@ class SeChainFrame(wx.Frame):
             MainController.node_start()
         else:
             self.write_console("This IP and trust node IP is not same")
-
-class MyApp(wx.App):
-    def OnInit(self):
-        frame = SeChainFrame(None, -1, 'fonts.py')
-        frame.Show(True)
-        self.SetTopWindow(frame)
-        return True
-
-app = MyApp(0)
-app.MainLoop()

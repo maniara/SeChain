@@ -56,6 +56,45 @@ def start(thread_name, ip_address):
                         FileController.create_new_block(data_entity['block_id'], data)
                     break
 
+                elif data_entity['type'] == 'C':
+                    from StorageManager import FileController
+                    from CommunicationManager import Sender
+                    last_file = FileController.get_last_file()
+                    print 'my_last_file = ' + last_file
+                    print 'last_file = ' + data_entity['last_file']
+
+                    #blocks are synchronized
+                    if last_file == data_entity['last_file']:  # block sync
+                        json_data = {
+                            'type': 'Q',
+                            'ip_address': data_entity['ip_address']
+                        }
+                        json_dump = json.dumps(json_data)
+                        Sender.send(data_entity['ip_address'], json_dump, 10654)
+
+                    # blocks are not synchronized
+                    else:  # block non sync
+                        import os
+                        for root, dirs, files in os.walk(FileController.block_storage_path):
+                            for file in files:
+                                if file <= data_entity['last_file']:
+                                    continue
+                                # send block
+                                else:
+                                    f = open(FileController.block_storage_path + file, 'r')
+                                    mess = f.read()
+                                    write_file = {
+                                        'type': 'W',
+                                        'file_name': file,
+                                        'message': mess
+                                    }
+                                    print 'file_name : ' + file
+                                    print 'message : ' + mess
+                                    f.close()
+                                    datas = json.dumps(write_file)
+                                    Sender.send(data_entity['ip_address'], datas, 10654)
+                        break
+
 
             except:
                 break

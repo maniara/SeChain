@@ -17,7 +17,7 @@ def initialize_node_info(my_node):
     # Other Node
     # Send request ip information
     else:
-        from BlockManager import BlockSynchronizer
+        from DataInitializer import BlockSynchronizer
         Sender.block_sync()
         #Sender.send_sync(fetch_node_ip, request_ip)
         thread.start_new_thread(DataSyncThread.request_node_info, ("SyncThrd2", request_ip))
