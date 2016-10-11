@@ -64,7 +64,7 @@ def start(thread_name, ip_address):
                     print 'last_file = ' + data_entity['last_file']
 
                     #blocks are synchronized
-                    if last_file == data_entity['last_file']:  # block sync
+                    if last_file == data_entity['last_file']:
                         json_data = {
                             'type': 'Q',
                             'ip_address': data_entity['ip_address']
@@ -73,7 +73,7 @@ def start(thread_name, ip_address):
                         Sender.send(data_entity['ip_address'], json_dump, port)
 
                     # blocks are not synchronized
-                    else:  # block non sync
+                    else:
                         import os
                         for root, dirs, files in os.walk(FileController.block_storage_path):
                             for file in files:
@@ -88,12 +88,18 @@ def start(thread_name, ip_address):
                                         'file_name': file,
                                         'message': mess
                                     }
-                                    print 'file_name : ' + file
-                                    print 'message : ' + mess
+                                    print 'Sending block #' + file
                                     f.close()
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas, port)
                         break
+
+                        json_data = {
+                            'type': 'Q',
+                            'ip_address': data_entity['ip_address']
+                        }
+                        json_dump = json.dumps(json_data)
+                        Sender.send(data_entity['ip_address'], json_dump, port)
 
 
             except:
