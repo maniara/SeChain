@@ -43,6 +43,8 @@ def receive_block_for_sync(*args):
         receive_socket, sender_ip = tcp_socket.accept()
         while True:
             data = receive_socket.recv(buf_size)
+            if not data == "":
+                print "Receiving "+data
             sync_flag = False
             try:
                 data_entity = json.loads(data)
@@ -50,9 +52,7 @@ def receive_block_for_sync(*args):
                 #if sync is finished
                 if data_entity['type'] == 'Q':
                     print 'Block Sync Complete'
-                    NodiInfomation.block_sync = True
-                    receive_socket.close()
-                    tcp_socket.close()
+                    NodeInformation.block_sync = True
                     break
 
                 # if sync is not finished, receive block
@@ -64,3 +64,8 @@ def receive_block_for_sync(*args):
                         break
             except:
                 break
+
+        if(NodeInformation.block_sync == True) :
+            receive_socket.close()
+            tcp_socket.close()
+            break
