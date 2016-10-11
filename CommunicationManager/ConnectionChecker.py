@@ -1,10 +1,11 @@
 import socket
+from MainController import NodeInformation
 
 # data sync thread port = 50007
 # If node is on-line , return True
 # If node is off-line, return False
 def connection_check(ip_address):
-    PORT = 50007
+    PORT = NodeInformation.port
     sck = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:

@@ -46,7 +46,7 @@ class MainController(object):
 
         #node listener start
         NodeInformation.nodeList = FileController.get_node_list()
-        thread.start_new_thread(Receiver.start, ("Listener_Thread",NodeInformation.my_ip_address))
+        thread.start_new_thread(Receiver.start, ("Listener_Thread", NodeInformation.my_ip_address, NodeInformation.port))
 
 
     @staticmethod

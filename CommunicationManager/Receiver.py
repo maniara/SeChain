@@ -1,27 +1,28 @@
-def start(thread_name, ip_address):
+def start(thread_name, ip_address, port):
     import json, sys, time
     from socket import *
     from StorageManager import FileController
     from MainController import NodeInformation
 
-    port = NodeInformation.port
     addr = (ip_address, port)
     buf_size = 10000
 
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    print "Receiver is started"
+    print "Receiver is started " + str(ip_address)+":"+str(port)
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
+        print sender_ip
 
         while True:
             data = receive_socket.recv(buf_size)
+            if not data == "":
+                print "Receiving " + data
             sync_flag = False
             try:
                 data_entity = json.loads(data)
-                print 'receive' + data_entity['type']
                 if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip
                     print ">"
@@ -105,9 +106,11 @@ def start(thread_name, ip_address):
                         }
                         json_dump = json.dumps(json_data)
                         Sender.send(data_entity['ip_address'], json_dump, port)
+                        break
 
 
             except:
+                print "Except"
                 break
 
     tcp_socket.close()

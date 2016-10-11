@@ -1,3 +1,5 @@
+from MainController import NodeInformation
+
 # Request and waiting IP information
 def request_node_info(thread_name, request_ip):
     from socket import *
@@ -5,7 +7,7 @@ def request_node_info(thread_name, request_ip):
     from StorageManager import FileController
     from DataInitializer import BlockSynchronizer
     import sys
-    port = 50007
+    port = NodeInformation.port
     addr = (request_ip, port)
     buf_size = 4000
 
@@ -46,7 +48,7 @@ def response_node_info(thread_name, request_ip):
     from StorageManager import FileController
     from CommunicationManager import Sender
 
-    port = 50007
+    port = NodeInformation.port
     addr = (request_ip, port)
     buf_size = 4000
 
@@ -65,7 +67,7 @@ def response_node_info(thread_name, request_ip):
             try:
                 node_list = FileController.get_node_list()
                 for iter in node_list:
-                    Sender.send(data, iter,50007)
+                    Sender.send(data, iter,NodeInformation.port)
                 break
             except:
                 print "EXCEPT"
