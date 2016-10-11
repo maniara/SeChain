@@ -1,5 +1,5 @@
 def start(thread_name, ip_address):
-    import json, sys
+    import json, sys, time
     from socket import *
     from StorageManager import FileController
     from MainController import NodeInformation
@@ -29,6 +29,7 @@ def start(thread_name, ip_address):
                     FileController.add_transaction(data)
                     break
 
+                # When new node is added
                 elif data_entity['type'] == 'N':
                     from NodeManager import NodeController
                     from StorageManager import FileController
@@ -47,6 +48,7 @@ def start(thread_name, ip_address):
 
                     break
 
+                #When new block is received
                 elif data_entity['type'] == 'B':
                     print "Block received"
                     from BlockManager import BlockVerifyer
@@ -56,12 +58,13 @@ def start(thread_name, ip_address):
                         FileController.create_new_block(data_entity['block_id'], data)
                     break
 
+                #When other node request sync block
                 elif data_entity['type'] == 'C':
                     from StorageManager import FileController
                     from CommunicationManager import Sender
                     last_file = FileController.get_last_file()
-                    print 'my_last_file = ' + last_file
-                    print 'last_file = ' + data_entity['last_file']
+                    #print 'my_last_file = ' + last_file
+                    #print 'last_file = ' + data_entity['last_file']
 
                     #blocks are synchronized
                     if last_file == data_entity['last_file']:
@@ -92,7 +95,9 @@ def start(thread_name, ip_address):
                                     f.close()
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas, port)
-                        break
+
+                                    time.sleep(3)
+
 
                         json_data = {
                             'type': 'Q',

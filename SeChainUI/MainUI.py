@@ -36,7 +36,7 @@ class MainFrame(wx.Frame):
         # IP address
         ip_panel = wx.Panel(self, -1)
         ip_address = MainController.get_ip_address()
-        wx.StaticText(ip_panel, 1, "Your IP Address:"+ip_address, (30, 30), style=wx.LEFT)
+        wx.StaticText(ip_panel, 1, "Your IP Address:"+NodeInformation.my_ip_address, (30, 30), style=wx.LEFT)
         vbox.Add(ip_panel, 1, wx.EXPAND)
 
         # Setting Trust Node Box
@@ -78,7 +78,7 @@ class MainFrame(wx.Frame):
         wx.StaticText(self.trust_node_panel, 1, "TrustNode : " + my_ip, (30, 30), style=wx.LEFT)
 
     def set_trust_node(self, event):
-        import NodeInformation
+        from SeChainController import NodeInformation
         dlg = wx.TextEntryDialog(self, '', 'Text Entry')
         dlg.SetValue(NodeInformation.trust_node_ip)
         if dlg.ShowModal() == wx.ID_OK:
@@ -95,7 +95,8 @@ class MainFrame(wx.Frame):
         MainController.initiate_node()
 
     def start_trust_node(self, event):
-        from MainController import NodeInformation
+        print "My_ip : " + NodeInformation.my_ip_address
+        print "Trust_ip : " + NodeInformation.trust_node_ip
         if NodeInformation.my_ip_address == NodeInformation.trust_node_ip :
             self.write_console("start trust node")
             MainController.node_start()
