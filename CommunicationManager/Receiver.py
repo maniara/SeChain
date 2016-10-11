@@ -70,7 +70,7 @@ def start(thread_name, ip_address):
                             'ip_address': data_entity['ip_address']
                         }
                         json_dump = json.dumps(json_data)
-                        Sender.send(data_entity['ip_address'], json_dump, 10654)
+                        Sender.send(data_entity['ip_address'], json_dump, port)
 
                     # blocks are not synchronized
                     else:  # block non sync
@@ -92,7 +92,7 @@ def start(thread_name, ip_address):
                                     print 'message : ' + mess
                                     f.close()
                                     datas = json.dumps(write_file)
-                                    Sender.send(data_entity['ip_address'], datas, 10654)
+                                    Sender.send(data_entity['ip_address'], datas, port)
                         break
 
 
