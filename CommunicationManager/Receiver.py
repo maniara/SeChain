@@ -2,7 +2,7 @@ def start(thread_name, ip_address, port):
     import json, sys, time
     from socket import *
     from StorageManager import FileController
-    from MainController import NodeInformation
+    from SeChainController import NodeInformation
 
     addr = (ip_address, port)
     buf_size = 10000
