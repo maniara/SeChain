@@ -1,6 +1,8 @@
+from socket import *
+
+
 def start(thread_name, ip_address, port):
     import json, sys, time
-    from socket import *
     from StorageManager import FileController
     from SeChainController import NodeInformation
 
@@ -114,9 +116,14 @@ def start(thread_name, ip_address, port):
                                 'type': 'N',
                                 'message' : n
                             }
-
                             json_dump = json.dumps(json_data)
                             Sender.send(data_entity['ip_address'], json_dump, port)
+
+                        fin_data = {
+                            'type': 'QN',
+                        }
+                        fin_dump = json.dumps(fin_data)
+                        Sender.send(data_entity['ip_address'], fin_dump, port)
                         break
                     except:
                         print sys.exc_info()
