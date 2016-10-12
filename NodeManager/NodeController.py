@@ -50,7 +50,7 @@ def send_my_node_info(my_node):
 
 def add_new_node(node_info_entity):
     # Parameter : data_entity(JSON object)
-    file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
+    file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
     path_info = file_path + '\NodeInfo.txt'
 
     FileController.write(path_info, node_info_entity)
