@@ -42,19 +42,31 @@ def get_node():
 
 
 def send_my_node_info(my_node):
-    import NodeInformation
+    from SeChainController import NodeInformation
     from CommunicationManager import Sender
     print "send node info"
-    Sender.send(NodeInformation.trust_node_ip, my_node, NodeInformation.port)
+    Sender.send_to_all_node(my_node)
 
 
 def add_new_node(node_info_entity):
+    sync_flag = False
     # Parameter : data_entity(JSON object)
-    file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
-    path_info = file_path + '\NodeInfo.txt'
+    node_list = FileController.get_ip_list()
 
-    FileController.write(path_info, node_info_entity)
-    print "New node information is added"
+    for outer_list in node_list:
+        outer_list = str(outer_list)
+        if outer_list in node_info_entity['ip_address']:
+            sync_flag = True
+
+    if sync_flag is False:
+        file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
+        path_info = file_path + '\NodeInfo.txt'
+
+        FileController.write(path_info, node_info_entity)
+        print "New node("+ node_info_entity['ip_address'] +") is added"
+
+    else :
+        print "Node(" + node_info_entity['ip_address'] + ") is already listed"
 
     return True
 

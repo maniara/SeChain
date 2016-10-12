@@ -1,4 +1,5 @@
 from SeChainController import NodeInformation
+from NodeManager import NodeController
 
 class MainController(object):
 
@@ -33,7 +34,10 @@ class MainController(object):
         # sync node list
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Downloading node list")
         NodeListSynchronizer.download_node_list(NodeInformation.my_node_json)
+        time.sleep(3)
 
+        # start node
+        MainController.node_start()
         #time.sleep(3)
         #MainController.command_control()
 
@@ -43,6 +47,12 @@ class MainController(object):
         import thread
         from StorageManager import FileController
         from CommunicationManager import Receiver
+        from SeChainUI import MainUI
+
+        # broadcast my node to all others and local
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Broadcast my node information")
+        NodeController.send_my_node_info(NodeInformation.my_node_json)
+        NodeController.add_new_node(NodeInformation.myNode)
 
         #node listener start
         NodeInformation.nodeList = FileController.get_node_list()
