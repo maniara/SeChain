@@ -1,8 +1,9 @@
+from StorageManager import FileController
+from SeChainController import NodeInformation
+
 def start(thread_name, ip_address, port):
     import json, sys, time
     from socket import *
-    from StorageManager import FileController
-    from MainController import NodeInformation
 
     addr = (ip_address, port)
     buf_size = 10000
@@ -115,6 +116,14 @@ def start(thread_name, ip_address, port):
                                 'message' : n
                             }
                             Sender.send(data_entity['ip_address'], json_data, port)
+
+                        fin_data = {
+                            'type': 'QN',
+                            'ip_address': data_entity['ip_address']
+                        }
+                        fin_data_message = json.dumps(fin_data)
+                        Sender.send(data_entity['ip_address'], fin_data_message, port)
+
                         break
                     except:
                         print sys.exc_info()

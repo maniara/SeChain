@@ -42,22 +42,20 @@ def receive_node_list(*args):
             data = receive_socket.recv(buf_size)
             if not data == "":
                 print "Receiving "+data
-            sync_flag = False
             try:
-                node_list = FileController.get_ip_list()
+                data_entity = json.load(data)
+                if data_entity['type'] == 'QN':
+                    print 'Node list sync complete'
+                    NodeInformation.node_sync = True
+                    break
 
-                for outer_list in node_list:
-                    outer_list = str(outer_list)
-                    if outer_list in data:
-                        sync_flag = True
-
-                if sync_flag is False:
-                    NodeController.add_new_node(data.replace("\n", ""))
-
-                break
+                elif data_entity['type'] == 'N':
+                    NodeController.add_new_node(data_entity)
             except :
                 print sys.exc_info()
                 break
 
-    tcp_socket.close()
-    receive_socket.close()
+        if(NodeInformation.node_sync == True) :
+            tcp_socket.close()
+            receive_socket.close()
+            break

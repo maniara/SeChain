@@ -1,3 +1,5 @@
+from SeChainController import NodeInformation
+
 def send(ip_address, message, port):
     from socket import *
     print "Sending "+ message + " to "+ip_address+":"+str(port)
@@ -22,6 +24,6 @@ def send_to_all_node(message):
 
     for addr in address_list:
         try:
-            send(addr, message, 2001)
+            send(addr, message, NodeInformation.port)
         except:
             continue

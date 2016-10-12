@@ -56,17 +56,14 @@ def receive_block_for_sync(*args):
 
                 #if sync is finished
                 if data_entity['type'] == 'Q':
-                    print 'Block Sync Complete'
+                    print 'Block sync complete'
                     NodeInformation.block_sync = True
                     break
 
                 # if sync is not finished, receive block
                 elif data_entity['type'] == 'W':
-                    try:
-                        FileController.write(FileController.block_storage_path + data_entity['file_name'], data_entity['message'])
-                    except:
-                        print "write error"
-                        break
+                    FileController.write(FileController.block_storage_path + data_entity['file_name'], data_entity['message'])
+
             except:
                 break
 
