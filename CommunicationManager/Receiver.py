@@ -108,6 +108,18 @@ def start(thread_name, ip_address, port):
                         Sender.send(data_entity['ip_address'], json_dump, port)
                         break
 
+                elif data_entity['type'] == 'RN':
+                    try:
+                        node_list = FileController.get_node_list()
+                        for iter in node_list:
+                            Sender.send(data, iter, port)
+                        break
+
+                    except:
+                        print "EXCEPT"
+                        break
+
+
 
             except:
                 print "Except"

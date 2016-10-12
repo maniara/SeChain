@@ -14,3 +14,4 @@ ui_frame = None
 # W: block for sync
 # B: new block
 # T: transaction
+# RN : Request Node List

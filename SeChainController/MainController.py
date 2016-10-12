@@ -10,7 +10,7 @@ class MainController(object):
         import thread, time
         from StorageManager import FileController
         from CommunicationManager import Receiver
-        from NodeInitializer import DataInitializer
+        from NodeInitializer import NodeListSynchronizer
         from BlockManager import BlockGenerator
         from NodeInitializer import BlockSynchronizer
         from CommunicationManager import Sender
@@ -20,7 +20,6 @@ class MainController(object):
         MainController.set_my_node()
         print ("Have got node information")
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Have got node information")
-
 
         # sync blocks
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronizing now")
@@ -32,7 +31,8 @@ class MainController(object):
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronized")
 
         # sync node list
-        #DataInitializer.initialize_node_info(MainController.my_node_json)
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Downloading node list")
+        NodeListSynchronizer.download_node_list(MainController.my_node_json)
 
         #time.sleep(3)
         #MainController.command_control()

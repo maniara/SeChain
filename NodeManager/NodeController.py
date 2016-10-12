@@ -31,7 +31,6 @@ def get_node():
         #file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
         #path_info = file_path + '\NodeInfo.txt'
         #FileController.write(path_info, new_json_node)
-        send_my_node_info(new_json_node)
         return json_node, new_json_node
 
     # Node exist

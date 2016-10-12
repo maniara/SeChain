@@ -1,6 +1,14 @@
 from SeChainController import NodeInformation
 from CommunicationManager import Sender
 
+
+#sending blocks in trust node is implemented in Receiver.py
+def sync_blocks():
+    import thread
+    thread.start_new_thread(receive_block_for_sync, ("BlockSyncReceiver", 1))
+    request_block_sync()
+
+
 #check whether this node has last block
 def request_block_sync():
     from NodeManager import NodeController
@@ -19,16 +27,13 @@ def request_block_sync():
     new_json_node = json.dumps(json_nodes)
     Sender.send(trust_node_ip, new_json_node, NodeInformation.port)
 
-def sync_blocks():
-    import thread
-    thread.start_new_thread(receive_block_for_sync, ("BlockSyncReceiver", 1))
-    request_block_sync()
 
 def receive_block_for_sync(*args):
     from CommunicationManager import Sender
     import json, sys
     from socket import *
     from StorageManager import FileController
+
 
     #processing response
     addr = (NodeInformation.my_ip_address, NodeInformation.port)
