@@ -1,5 +1,6 @@
 import JsonEncoder
 import os
+import json
 from StorageManager import FileController
 
 def get_node():
@@ -44,7 +45,7 @@ def get_node():
 def send_my_node_info(my_node):
     from SeChainController import NodeInformation
     from CommunicationManager import Sender
-    print "send node info"
+    print "send node info to others"
     Sender.send_to_all_node(my_node)
 
 
@@ -62,8 +63,8 @@ def add_new_node(node_info_entity):
         file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
         path_info = file_path + '\NodeInfo.txt'
 
-        FileController.write(path_info, node_info_entity)
-        print "New node("+ node_info_entity['ip_address'] +") is added"
+        FileController.write(path_info, json.dumps(node_info_entity))
+        print "New node("+ node_info_entity['ip_address'] +") is added in local storage"
 
     else :
         print "Node(" + node_info_entity['ip_address'] + ") is already listed"
