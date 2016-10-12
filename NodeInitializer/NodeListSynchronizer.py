@@ -1,7 +1,8 @@
 from SeChainController import NodeInformation
 from NodeManager import NodeController
 from CommunicationManager import Sender
-import json
+from StorageManager import FileController
+import json, sys
 from socket import *
 
 
