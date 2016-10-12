@@ -112,7 +112,6 @@ def start(thread_name, ip_address, port):
                         for n in node_list:
                             json_data = {
                                 'type': 'N',
-                                'ip_address': data_entity['ip_address'],
                                 'message' : n
                             }
 

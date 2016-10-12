@@ -41,9 +41,10 @@ def receive_node_list(*args):
         while True:
             data = receive_socket.recv(buf_size)
             if not data == "":
-                print "Receiving "+data.replace("\\", "")
+                print "Receiving "+data
             try:
-                data_entity = json.load(data.replace("\\", ""))
+                data_entity = json.load(data)
+                print(data_entity['type'])
                 if data_entity['type'] == 'QN':
                     print 'Node list sync complete'
                     NodeInformation.node_sync = True
