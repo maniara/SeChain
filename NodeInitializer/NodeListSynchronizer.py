@@ -1,5 +1,11 @@
-#sending node list in trust node is implemented in Receiver.py
+from SeChainController import NodeInformation
+from NodeManager import NodeController
+from CommunicationManager import Sender
+import json
+from socket import *
 
+
+#sending node list in trust node is implemented in Receiver.py
 def download_node_list(my_node):
     import thread
 
@@ -25,7 +31,7 @@ def receive_node_list(*args):
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    print "Node List Receiver is started"
+    print "Node List Receiver is started(" + str(NodeInformation.my_ip_address) + ":" + str(NodeInformation.port)+")"
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
@@ -33,6 +39,8 @@ def receive_node_list(*args):
         # data : request sync node  ip address
         while True:
             data = receive_socket.recv(buf_size)
+            if not data == "":
+                print "Receiving "+data
             sync_flag = False
             try:
                 node_list = FileController.get_ip_list()

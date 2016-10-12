@@ -97,9 +97,6 @@ def start(thread_name, ip_address, port):
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas, port)
 
-                                    time.sleep(3)
-
-
                         json_data = {
                             'type': 'Q',
                             'ip_address': data_entity['ip_address']
@@ -111,12 +108,16 @@ def start(thread_name, ip_address, port):
                 elif data_entity['type'] == 'RN':
                     try:
                         node_list = FileController.get_node_list()
-                        for iter in node_list:
-                            Sender.send(data, iter, port)
+                        for n in node_list:
+                            json_data = {
+                                'type': 'N',
+                                'ip_address': data_entity['ip_address'],
+                                'message' : n
+                            }
+                            Sender.send(data_entity['ip_address'], json_data, port)
                         break
-
                     except:
-                        print "EXCEPT"
+                        print sys.exc_info()
                         break
 
 

@@ -32,7 +32,7 @@ class MainController(object):
 
         # sync node list
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Downloading node list")
-        NodeListSynchronizer.download_node_list(MainController.my_node_json)
+        NodeListSynchronizer.download_node_list(NodeInformation.my_node_json)
 
         #time.sleep(3)
         #MainController.command_control()
