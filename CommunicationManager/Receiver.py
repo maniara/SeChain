@@ -70,8 +70,8 @@ def start(thread_name, ip_address, port):
                     #blocks are synchronized
                     if last_file == data_entity['last_file']:
                         json_data = {
-                            'type': 'Q',
-                            'ip_address': data_entity['ip_address']
+                            "type": "Q",
+                            "ip_address": data_entity['ip_address']
                         }
                         json_dump = json.dumps(json_data)
                         Sender.send(data_entity['ip_address'], json_dump, port)
@@ -97,12 +97,13 @@ def start(thread_name, ip_address, port):
                                     datas = json.dumps(write_file)
                                     Sender.send(data_entity['ip_address'], datas, port)
 
-                        json_data = {
+                        fin_message = {
                             'type': 'Q',
                             'ip_address': data_entity['ip_address']
                         }
-                        json_dump = json.dumps(json_data)
-                        Sender.send(data_entity['ip_address'], json_dump, port)
+
+                        fin_json_message = json.dumps(fin_message)
+                        Sender.send(data_entity['ip_address'], fin_json_message, port)
                         break
 
                 elif data_entity['type'] == 'RN':
@@ -114,16 +115,16 @@ def start(thread_name, ip_address, port):
                                 'ip_address': data_entity['ip_address'],
                                 'message' : n
                             }
-                            Sender.send(data_entity['ip_address'], json_data, port)
+
+                            json_dump = json.dumps(json_data)
+                            Sender.send(data_entity['ip_address'], json_dump, port)
                         break
                     except:
                         print sys.exc_info()
                         break
 
-
-
             except:
-                print "Except"
+                print sys.exc_info()
                 break
 
     tcp_socket.close()
