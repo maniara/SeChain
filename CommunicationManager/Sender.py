@@ -1,7 +1,7 @@
 from SeChainController import NodeInformation
+from socket import *
 
 def send(ip_address, message, port):
-    from socket import *
     print "Sending "+ message + " to "+ip_address+":"+str(port)
     buf_size = 10000
     receiver_addr = (ip_address, port)

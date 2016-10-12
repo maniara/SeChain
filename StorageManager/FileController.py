@@ -61,6 +61,9 @@ def get_node():
     from SeChainController import NodeInformation
 
     node_list = get_node_list()
+    if len(node_list) == 0:
+        return False
+
     for node_string in node_list:
         node = json.loads(node_string)
 

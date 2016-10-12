@@ -17,11 +17,6 @@ class MainController(object):
         from CommunicationManager import Sender
         from SeChainUI import MainUI
 
-        #my ip check
-        MainController.set_my_node()
-        print ("Have got node information")
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Have got node information")
-
         # sync blocks
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronizing now")
         BlockSynchronizer.sync_blocks()
@@ -48,6 +43,11 @@ class MainController(object):
         from StorageManager import FileController
         from CommunicationManager import Receiver
         from SeChainUI import MainUI
+
+        #my node check
+        MainController.set_my_node()
+        print ("Have got node information")
+        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Have got node information")
 
         # broadcast my node to all others and local
         MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Broadcast my node information")
