@@ -4,7 +4,7 @@ def check_status():
 def generate_block(last_transaction):
     from BlockManager import Block
     from StorageManager import FileController
-    from SmartContracts import ContractRunner
+    from SmartContractManager import ContractRunner
     from BlockVerifyer import  transaction_verify
     import hashlib
     import json

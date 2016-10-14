@@ -35,9 +35,6 @@ class MainFrame(wx.Frame):
         menubar.Append(trx_menu, '&Transaction')
         trx_menu.Append(1, '&Send Transaction')
         self.Bind(wx.EVT_MENU, self.send_transaction, id=1)
-        trx_menu.Append(wx.ID_ANY, '&Show Transactions')
-        trx_menu.Append(wx.ID_ANY, '&Show Block List')
-        trx_menu.Append(wx.ID_ANY, '&Show Block')
         self.SetMenuBar(menubar)
 
         # Welcome message
@@ -116,32 +113,35 @@ class MainFrame(wx.Frame):
             self.write_console("This IP and trust node IP is not same")
 
     def send_transaction(self, event):
-        trx_drg = wx.Dialog(None, title='Sending Transaction')
-        trx_drg.SetSize((500, 300))
-        trx_drg.SetTitle('Sending Transaction')
+        if (Property.node_started == True):
+            trx_drg = wx.Dialog(None, title='Sending Transaction')
+            trx_drg.SetSize((500, 300))
+            trx_drg.SetTitle('Sending Transaction')
 
-        pnl = wx.Panel(trx_drg)
-        vbox = wx.BoxSizer(wx.VERTICAL)
+            pnl = wx.Panel(trx_drg)
+            vbox = wx.BoxSizer(wx.VERTICAL)
 
-        wx.StaticText(pnl, 1, 'Receiver IP', (5, 5), style=wx.LEFT)
-        receiver_text = wx.TextCtrl(pnl, pos = (5, 25))
-        wx.StaticText(pnl, 2, 'Amount', (5, 60), style=wx.LEFT)
-        amount_text = wx.TextCtrl(pnl, pos = (5, 80))
-        wx.StaticText(pnl, 3, 'Message', (5, 120), style=wx.LEFT)
-        message_text = wx.TextCtrl(pnl, pos = (5, 140), size = (200, 25))
+            wx.StaticText(pnl, 1, 'Receiver IP', (5, 5), style=wx.LEFT)
+            receiver_text = wx.TextCtrl(pnl, pos = (5, 25))
+            wx.StaticText(pnl, 2, 'Amount', (5, 60), style=wx.LEFT)
+            amount_text = wx.TextCtrl(pnl, pos = (5, 80))
+            wx.StaticText(pnl, 3, 'Message', (5, 120), style=wx.LEFT)
+            message_text = wx.TextCtrl(pnl, pos = (5, 140), size = (200, 25))
 
-        hbox2 = wx.BoxSizer(wx.HORIZONTAL)
-        okButton = wx.Button(trx_drg, wx.ID_OK)
-        hbox2.Add(okButton)
+            hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+            okButton = wx.Button(trx_drg, wx.ID_OK)
+            hbox2.Add(okButton)
 
-        vbox.Add(pnl, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
-        vbox.Add(hbox2, flag=wx.ALIGN_CENTER|wx.TOP|wx.BOTTOM, border=10)
+            vbox.Add(pnl, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
+            vbox.Add(hbox2, flag=wx.ALIGN_CENTER|wx.TOP|wx.BOTTOM, border=10)
 
-        trx_drg.SetSizer(vbox)
+            trx_drg.SetSizer(vbox)
 
-        if trx_drg.ShowModal() == wx.ID_OK:
-            from SeChainController import FunctionAPIs
-            # need to validation check (IP format)
-            FunctionAPIs.send_transaction(receiver_text.GetValue(), amount_text.GetValue(), message_text.GetValue())
+            if trx_drg.ShowModal() == wx.ID_OK:
+                from SeChainController import FunctionAPIs
+                # need to validation check (IP format)
+                FunctionAPIs.send_transaction(receiver_text.GetValue(), amount_text.GetValue(), message_text.GetValue())
 
-        trx_drg.Destroy()
+            trx_drg.Destroy()
+        else:
+            self.write_console("Node is not started, Start node first")

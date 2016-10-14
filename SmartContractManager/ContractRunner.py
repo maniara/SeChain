@@ -9,6 +9,7 @@ def makeContract(time_stamp,sourceName,args):
     contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(*args)
     contractAddr = time_stamp
     fContract = open(CONTRACT_ADDR +contractAddr,'wb')
+    #serialize and write
     pickle.dump(contract,fContract)
     fContract.close()
     fContract = open(CONTRACT_ADDR +contractAddr,'rb')
@@ -23,8 +24,9 @@ def run(contractAddr,functionName,args):
     contractAddress = CONTRACT_ADDR+contractAddr
     fContract = open(contractAddress,'r')
     contract = pickle.load(fContract)
-    print 'pickle load'
-    method = getattr(contract,functionName)
+    print 'Contract loaded'
+    method = getattr(contract, functionName)
+    #run method
     result = method(*args)
     fContract.close()
 

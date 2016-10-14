@@ -1,7 +1,7 @@
 import os
 
-database_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
-block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\BlockStorage' + '\\'
+database_path = os.path.dirname(os.path.dirname(__file__)) + '\_DataStorage' + '\\'
+block_storage_path = os.path.dirname(os.path.dirname(__file__)) + '\_BlockStorage' + '\\'
 node_info_file = 'NodeInfo.txt'
 ledger_file = 'Transactions.txt'
 
@@ -30,8 +30,6 @@ def read_all_line(file_name):
 
 def add_transaction(trx):
     write(database_path + ledger_file, trx)
-    print "\nTransaction added\n"
-    print "(t : send transaction, v : view transaction buffer, q : quit) >"
 
 
 def get_ip_list():

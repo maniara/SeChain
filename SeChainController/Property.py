@@ -7,6 +7,7 @@ node_sync = False
 block_sync = False
 port = 10654
 ui_frame = None
+node_started = False
 
 # type direction
 # C: request last block

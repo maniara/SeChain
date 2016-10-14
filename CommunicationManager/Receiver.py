@@ -38,14 +38,15 @@ def start(thread_name, ip_address, port):
                     from StorageManager import FileController
 
                     node_list = FileController.get_ip_list()
+                    received_ip = data_entity['ip_address']
 
                     for outer_list in node_list:
                         outer_list = str(outer_list)
-                        if outer_list in data:
+                        if outer_list == received_ip:
                             sync_flag = True
 
                     if sync_flag is False:
-                        NodeController.add_new_node(data)
+                        NodeController.add_new_node(data_entity)
 
                     print "New node is connected"
 
@@ -53,12 +54,16 @@ def start(thread_name, ip_address, port):
 
                 #When new block is received
                 elif data_entity['type'] == 'B':
+                    from SmartContractManager import ContractManager
                     print "Block received"
                     from BlockManager import BlockVerifyer
 
                     if BlockVerifyer.verify(data_entity) is True:
                         FileController.remove_all_transactions()
                         FileController.create_new_block(data_entity['block_id'], data)
+
+                    #Processing smart contract
+                    ContractManager.process_contract(data_entity)
                     break
 
                 #When other node request sync block

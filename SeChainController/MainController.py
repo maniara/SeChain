@@ -62,6 +62,8 @@ class MainController(object):
         Property.nodeList = FileController.get_node_list()
         thread.start_new_thread(Receiver.start, ("Listener_Thread", Property.my_ip_address, Property.port))
 
+        Property.node_started = True
+
 
     @staticmethod
     def get_ip_address():
@@ -76,6 +78,7 @@ class MainController(object):
         import Property
         Property.myNode, Property.my_node_json = NodeController.get_node()
 
+    # For console based UI
     @staticmethod
     def command_control():
         from TransactionManager import TransactionController
