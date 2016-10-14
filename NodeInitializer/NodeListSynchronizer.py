@@ -1,4 +1,4 @@
-from SeChainController import NodeInformation
+from SeChainController import Property
 from NodeManager import NodeController
 from CommunicationManager import Sender
 from StorageManager import FileController
@@ -14,7 +14,7 @@ def download_node_list(my_node):
     request_node_list()
 
 def request_node_list():
-    trust_node_ip = NodeInformation.trust_node_ip
+    trust_node_ip = Property.trust_node_ip
     json_node, new_json_nodes = NodeController.get_node()
     json_nodes = {
         'type': 'RN',
@@ -22,17 +22,17 @@ def request_node_list():
     }
 
     new_json_node = json.dumps(json_nodes)
-    Sender.send(trust_node_ip, new_json_node, NodeInformation.port)
+    Sender.send(trust_node_ip, new_json_node, Property.port)
 
 
 def receive_node_list(*args):
-    addr = (NodeInformation.my_ip_address, NodeInformation.port)
+    addr = (Property.my_ip_address, Property.port)
     buf_size = 10000
 
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    print "Node List Receiver is started(" + str(NodeInformation.my_ip_address) + ":" + str(NodeInformation.port)+")"
+    print "Node List Receiver is started(" + str(Property.my_ip_address) + ":" + str(Property.port) + ")"
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
@@ -46,16 +46,17 @@ def receive_node_list(*args):
                 data_entity = json.loads(data)
                 if data_entity['type'] == 'QN':
                     print 'Node list sync complete'
-                    NodeInformation.node_sync = True
+                    Property.node_sync = True
                     break
 
                 elif data_entity['type'] == 'N':
-                    NodeController.add_new_node(data_entity)
+                    print 'Node info received'
+                    NodeController.add_new_node(json.loads(data_entity['message']))
             except :
                 print sys.exc_info()
                 break
 
-        if(NodeInformation.node_sync == True) :
+        if(Property.node_sync == True) :
             tcp_socket.close()
             receive_socket.close()
             break

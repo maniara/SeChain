@@ -1,4 +1,4 @@
-from SeChainController import NodeInformation
+from SeChainController import Property
 from CommunicationManager import Sender
 
 
@@ -16,7 +16,7 @@ def request_block_sync():
     import json
     import socket
 
-    trust_node_ip = NodeInformation.trust_node_ip
+    trust_node_ip = Property.trust_node_ip
     json_node, new_json_nodes = NodeController.get_node()
     last_file = FileController.get_last_file()
     json_nodes = {
@@ -25,7 +25,7 @@ def request_block_sync():
         'ip_address': json_node['ip_address']
     }
     new_json_node = json.dumps(json_nodes)
-    Sender.send(trust_node_ip, new_json_node, NodeInformation.port)
+    Sender.send(trust_node_ip, new_json_node, Property.port)
 
 
 def receive_block_for_sync(*args):
@@ -36,7 +36,7 @@ def receive_block_for_sync(*args):
 
 
     #processing response
-    addr = (NodeInformation.my_ip_address, NodeInformation.port)
+    addr = (Property.my_ip_address, Property.port)
     buf_size = 10000
 
     tcp_socket = socket(AF_INET, SOCK_STREAM)
@@ -57,7 +57,7 @@ def receive_block_for_sync(*args):
                 #if sync is finished
                 if data_entity['type'] == 'Q':
                     print 'Block sync complete'
-                    NodeInformation.block_sync = True
+                    Property.block_sync = True
                     break
 
                 # if sync is not finished, receive block
@@ -67,7 +67,7 @@ def receive_block_for_sync(*args):
             except:
                 break
 
-        if(NodeInformation.block_sync == True) :
+        if(Property.block_sync == True) :
             receive_socket.close()
             tcp_socket.close()
             break

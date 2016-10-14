@@ -4,7 +4,7 @@ from socket import *
 def start(thread_name, ip_address, port):
     import json, sys, time
     from StorageManager import FileController
-    from SeChainController import NodeInformation
+    from SeChainController import Property
 
     addr = (ip_address, port)
     buf_size = 10000

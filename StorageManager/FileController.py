@@ -58,7 +58,7 @@ def get_transaction_list():
 
 def get_node():
     import json
-    from SeChainController import NodeInformation
+    from SeChainController import Property
 
     node_list = get_node_list()
     if len(node_list) == 0:
@@ -67,7 +67,7 @@ def get_node():
     for node_string in node_list:
         node = json.loads(node_string)
 
-        if node['ip_address'] == NodeInformation.my_ip_address:
+        if node['ip_address'] == Property.my_ip_address:
             return node_string
         else:
             continue

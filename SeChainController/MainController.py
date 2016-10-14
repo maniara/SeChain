@@ -1,4 +1,4 @@
-from SeChainController import NodeInformation
+from SeChainController import Property
 from NodeManager import NodeController
 
 class MainController(object):
@@ -18,20 +18,21 @@ class MainController(object):
         from SeChainUI import MainUI
 
         # sync blocks
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronizing now")
+        MainUI.MainFrame.write_console(Property.ui_frame, "Blocks are synchronizing now")
         BlockSynchronizer.sync_blocks()
 
         while(True):
-           if(NodeInformation.block_sync == True):
+           if(Property.block_sync == True):
                 break
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Blocks are synchronized")
+        MainUI.MainFrame.write_console(Property.ui_frame, "Blocks are synchronized")
 
         # sync node list
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Downloading node list")
-        NodeListSynchronizer.download_node_list(NodeInformation.my_node_json)
-        #while (True):
-        #    if (NodeInformation.node_sync == True):
-        #        break
+        MainUI.MainFrame.write_console(Property.ui_frame, "Downloading node list")
+        NodeListSynchronizer.download_node_list(Property.my_node_json)
+
+        while (True):
+            if (Property.node_sync == True):
+                break
 
         # start node
         MainController.node_start()
@@ -40,7 +41,7 @@ class MainController(object):
 
     @staticmethod
     def node_start():
-        import NodeInformation
+        import Property
         import thread
         from StorageManager import FileController
         from CommunicationManager import Receiver
@@ -49,30 +50,30 @@ class MainController(object):
         #my node check
         MainController.set_my_node()
         print ("Have got node information")
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Have got node information")
+        MainUI.MainFrame.write_console(Property.ui_frame, "Have got node information")
 
         # broadcast my node to all others and local
-        MainUI.MainFrame.write_console(NodeInformation.ui_frame, "Broadcast my node information")
-        NodeController.send_my_node_info(NodeInformation.my_node_json)
-        NodeController.add_new_node(NodeInformation.myNode)
+        MainUI.MainFrame.write_console(Property.ui_frame, "Broadcast my node information")
+        NodeController.send_my_node_info(Property.my_node_json)
+        NodeController.add_new_node(Property.myNode)
 
         #node listener start
-        NodeInformation.nodeList = FileController.get_node_list()
-        thread.start_new_thread(Receiver.start, ("Listener_Thread", NodeInformation.my_ip_address, NodeInformation.port))
+        Property.nodeList = FileController.get_node_list()
+        thread.start_new_thread(Receiver.start, ("Listener_Thread", Property.my_ip_address, Property.port))
 
 
     @staticmethod
     def get_ip_address():
         import socket
-        import NodeInformation
-        NodeInformation.my_ip_address = socket.gethostbyname(socket.gethostname())
-        return NodeInformation.my_ip_address
+        import Property
+        Property.my_ip_address = socket.gethostbyname(socket.gethostname())
+        return Property.my_ip_address
 
     @staticmethod
     def set_my_node():
         from NodeManager import NodeController
-        import NodeInformation
-        NodeInformation.myNode, NodeInformation.my_node_json = NodeController.get_node()
+        import Property
+        Property.myNode, Property.my_node_json = NodeController.get_node()
 
     @staticmethod
     def command_control():
