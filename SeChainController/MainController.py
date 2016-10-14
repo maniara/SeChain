@@ -55,7 +55,7 @@ class MainController(object):
         # broadcast my node to all others and local if this is not the trust node
         MainUI.MainFrame.write_console(Property.ui_frame, "Broadcast my node information")
         NodeController.add_new_node(Property.myNode)
-        if my_node.ip_address != Property.trust_node_ip:
+        if Property.my_ip_address != Property.trust_node_ip:
             NodeController.send_my_node_info(Property.my_node_json)
 
         #node listener start
