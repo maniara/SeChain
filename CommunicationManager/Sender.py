@@ -26,7 +26,8 @@ def send_to_all_node(message):
     address_list = FileController.get_ip_list()
 
     for addr in address_list:
-        try:
-            send(addr, message, Property.port)
-        except:
-            continue
+        if addr != Property.my_ip_address:
+            try:
+                send(addr, message, Property.port)
+            except:
+                continue

@@ -4,15 +4,15 @@ def check_status():
 def generate_block(last_transaction):
     from BlockManager import Block
     from StorageManager import FileController
-    from SmartContractManager import ContractRunner
-    from BlockVerifyer import  transaction_verify
+    from SmartContractManager import ContractManager
+    from BlockManager import BlockVerifier
     import hashlib
     import json
 
     transactions = FileController.get_transaction_list()
     transactions.append(last_transaction + "\n")
 
-    contract_states =  transaction_verify(transactions)
+    contract_states = ContractManager.process_contract(transactions)
 
     # last block -> hash
     last_block_id, last_block = FileController.get_last_block()

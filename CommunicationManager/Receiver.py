@@ -27,7 +27,6 @@ def start(thread_name, ip_address, port):
                 data_entity = json.loads(data)
                 if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip
-                    print ">"
 
                     FileController.add_transaction(data)
                     break
@@ -56,14 +55,14 @@ def start(thread_name, ip_address, port):
                 elif data_entity['type'] == 'B':
                     from SmartContractManager import ContractManager
                     print "Block received"
-                    from BlockManager import BlockVerifyer
+                    from BlockManager import BlockVerifier
 
-                    if BlockVerifyer.verify(data_entity) is True:
+                    if BlockVerifier.verify(data_entity) is True:
                         FileController.remove_all_transactions()
                         FileController.create_new_block(data_entity['block_id'], data)
+                        # Processing smart contract
+                        ContractManager.process_contract(data_entity['transactions'])
 
-                    #Processing smart contract
-                    ContractManager.process_contract(data_entity)
                     break
 
                 #When other node request sync block

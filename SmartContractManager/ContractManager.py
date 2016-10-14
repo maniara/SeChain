@@ -1,6 +1,6 @@
-def process_contract(block_string):
-    transactions = block_string['transactions']
+import json
 
+def process_contract(transactions):
     contract_states = {}
     for transaction in transactions:
         transaction = json.loads(transaction)
