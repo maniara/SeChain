@@ -52,10 +52,11 @@ class MainController(object):
         print ("Have got node information")
         MainUI.MainFrame.write_console(Property.ui_frame, "Have got node information")
 
-        # broadcast my node to all others and local
+        # broadcast my node to all others and local if this is not the trust node
         MainUI.MainFrame.write_console(Property.ui_frame, "Broadcast my node information")
-        NodeController.send_my_node_info(Property.my_node_json)
         NodeController.add_new_node(Property.myNode)
+        if my_node.ip_address != Property.trust_node_ip:
+            NodeController.send_my_node_info(Property.my_node_json)
 
         #node listener start
         Property.nodeList = FileController.get_node_list()
