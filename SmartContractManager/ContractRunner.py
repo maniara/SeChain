@@ -2,13 +2,15 @@ import pickle
 import hashlib
 import importlib
 import os
-CONTRACT_ADDR = os.path.dirname(os.path.dirname(__file__)) + '\contracts'+ '\\'
-SOURCE_ADDR = "sources."
+from SeChainController import Property
+
+CONTRACT_ADDR = Property.CONTRACT_DEPLOY_PATH
+SOURCE_ADDR = "Sources."
 
 def makeContract(time_stamp,sourceName,args):
     contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(*args)
     contractAddr = time_stamp
-    fContract = open(CONTRACT_ADDR +contractAddr,'wb')
+    fContract = open(CONTRACT_ADDR +"C"+contractAddr,'wb')
     #serialize and write
     pickle.dump(contract,fContract)
     fContract.close()

@@ -23,9 +23,11 @@ def start(thread_name, ip_address, port):
             data = receive_socket.recv(buf_size)
             sync_flag = False
             try:
+                if data == "":
+                    break
                 data_entity = json.loads(data)
-                if not data == "":
-                    print "Receiving " + data_entity['type'] + " from " + data_entity['ip_address']
+                print "Receiving " + data
+                print "Receiving " + data_entity['type']
 
                 if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip

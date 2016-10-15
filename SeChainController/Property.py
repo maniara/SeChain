@@ -1,3 +1,5 @@
+import os
+
 myNode = None #node entity
 my_node_json = None   #node entity written in json
 nodeList = None   #all peer(node) list of se-chain
@@ -9,6 +11,7 @@ port = 10654
 ui_frame = None
 node_started = False
 max_transaction = 0
+CONTRACT_DEPLOY_PATH = os.path.dirname(os.path.dirname(__file__)) + '\_ContractsStorage'+ '\\'
 
 # type direction
 # C: request last block
