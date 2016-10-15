@@ -14,7 +14,7 @@ def process_contract(transactions):
             result = ContractRunner.makeContract(transaction['time_stamp'], transaction['contract_datas']['source'],
                                                  args)
             # (contract id, source_path, args)
-            contract_states[result['contractAddr']] = result['state']
+            # contract_states[result['contractAddr']] = result['state']
 
         #run contract
         if transaction['type'] == 'RT':

@@ -11,7 +11,7 @@ port = 10654
 ui_frame = None
 node_started = False
 max_transaction = 0
-CONTRACT_DEPLOY_PATH = os.path.dirname(os.path.dirname(__file__)) + '\_ContractsStorage'+ '\\'
+CONTRACT_DEPLOY_PATH = os.path.dirname(os.path.dirname(__file__)) + '\_ContractStorage'+ '\\'
 
 # type direction
 # C: request last block

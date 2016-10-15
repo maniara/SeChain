@@ -5,19 +5,23 @@ import os
 from SeChainController import Property
 
 CONTRACT_ADDR = Property.CONTRACT_DEPLOY_PATH
-SOURCE_ADDR = "Sources."
+SOURCE_ADDR = "SmartContractManager.Sources."
 
+#LIMITATION
+#No source code deploy implementation
+#Need to exist sources all node
 def makeContract(time_stamp,sourceName,args):
     contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(*args)
     contractAddr = time_stamp
     fContract = open(CONTRACT_ADDR +"C"+contractAddr,'wb')
+    print contractAddr
     #serialize and write
     pickle.dump(contract,fContract)
     fContract.close()
-    fContract = open(CONTRACT_ADDR +contractAddr,'rb')
+    fContract = open(CONTRACT_ADDR +"C"+contractAddr,'rb')
     state = fContract.read()
     fContract.close()
-    print {'contractAddr' :  contractAddr ,'state' : state}
+    print 'Contract (' + contractAddr ,+ ') deployied'
     return {'contractAddr' :  contractAddr ,'state' : state}
 
 def run(contractAddr,functionName,args):
