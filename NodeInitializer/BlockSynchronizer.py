@@ -1,3 +1,5 @@
+import json, sys, traceback
+from socket import *
 from SeChainController import Property
 from CommunicationManager import Sender
 
@@ -30,8 +32,6 @@ def request_block_sync():
 
 def receive_block_for_sync(*args):
     from CommunicationManager import Sender
-    import json, sys
-    from socket import *
     from StorageManager import FileController
 
 
@@ -42,17 +42,20 @@ def receive_block_for_sync(*args):
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    print "Block Receiver is started"
+    #print "Block Receiver is started"
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
         while True:
             data = receive_socket.recv(buf_size)
-            if not data == "":
-                print "Receiving "+data
             sync_flag = False
             try:
+                if data == "":
+                    break
+
                 data_entity = json.loads(data)
+                print "Receiving " + data_entity['type']
+
 
                 #if sync is finished
                 if data_entity['type'] == 'Q':
@@ -65,6 +68,7 @@ def receive_block_for_sync(*args):
                     FileController.write(FileController.block_storage_path + data_entity['file_name'], data_entity['message'])
 
             except:
+                traceback.print_exc()
                 break
 
         if(Property.block_sync == True) :

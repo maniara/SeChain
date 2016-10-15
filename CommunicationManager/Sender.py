@@ -5,7 +5,7 @@ from SeChainController import Property
 def send(ip_address, message, port):
 
     if(ip_address != Property.my_ip_address):
-        print "Sending "+ message + " to "+ip_address+":"+str(port)
+        #print "Sending "+ message + " to "+ip_address+":"+str(port)
         buf_size = 10000
         receiver_addr = (ip_address, port)
         tcp_socket =socket(AF_INET, SOCK_STREAM)

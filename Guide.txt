@@ -7,3 +7,5 @@ wspython for ui : pip.exe install --upgrade  --trusted-host wxpython.org --pre -
 # W: block for sync
 # B: new block
 # T: new transaction
+# CT : deploy smart contract
+$ RT : Run Smart Contract

@@ -45,7 +45,7 @@ def get_node():
 def send_my_node_info(my_node):
     from SeChainController import Property
     from CommunicationManager import Sender
-    print "send node info to others"
+    print "Sending node info to others"
     Sender.send_to_all_node(my_node)
 
 
@@ -60,10 +60,7 @@ def add_new_node(node_info_entity):
             sync_flag = True
 
     if sync_flag is False:
-        file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataStorage' + '\\'
-        path_info = file_path + '\NodeInfo.txt'
-
-        FileController.write(path_info, json.dumps(node_info_entity))
+        FileController.add_node_info(json.dumps(node_info_entity))
         print "New node("+ node_info_entity['ip_address'] +") is added in local storage"
 
     else :

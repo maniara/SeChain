@@ -32,9 +32,11 @@ class MainFrame(wx.Frame):
         # menu
         menubar = wx.MenuBar()
         trx_menu = wx.Menu()
-        menubar.Append(trx_menu, '&Transaction')
-        trx_menu.Append(1, '&Send Transaction')
+        menubar.Append(trx_menu, '&Send Transaction')
+        trx_menu.Append(1, '&Send Data Transaction')
+        trx_menu.Append(2, '&Deploy Smart Contract')
         self.Bind(wx.EVT_MENU, self.send_transaction, id=1)
+        self.Bind(wx.EVT_MENU, self.deploy_contract, id=2)
         self.SetMenuBar(menubar)
 
         # Welcome message
@@ -144,4 +146,52 @@ class MainFrame(wx.Frame):
 
             trx_drg.Destroy()
         else:
+            print "Node is not started, Start node first"
             self.write_console("Node is not started, Start node first")
+
+    def deploy_contract(self, event):
+        if (Property.node_started == True):
+            trx_drg = wx.Dialog(None, title='Sending Transaction')
+            trx_drg.SetSize((500, 400))
+            trx_drg.SetTitle('Sending Transaction')
+
+            pnl = wx.Panel(trx_drg)
+            vbox = wx.BoxSizer(wx.VERTICAL)
+
+            wx.StaticText(pnl, 1, 'Receiver IP', (5, 5), style=wx.LEFT)
+            receiver_text = wx.TextCtrl(pnl, pos = (5, 25))
+            wx.StaticText(pnl, 2, 'Amount', (5, 60), style=wx.LEFT)
+            amount_text = wx.TextCtrl(pnl, pos = (5, 80))
+            wx.StaticText(pnl, 3, 'Message', (5, 120), style=wx.LEFT)
+            message_text = wx.TextCtrl(pnl, pos = (5, 140), size = (200, 25))
+            wx.StaticText(pnl, 4, 'Source File (*.py)', (5, 180), style=wx.LEFT)
+            source_text = wx.TextCtrl(pnl, pos = (5, 200), size = (200, 25))
+            wx.StaticText(pnl, 4, 'Arguments (split by ' ', ex : 1 b)', (5, 240), style=wx.LEFT)
+            arg_text = wx.TextCtrl(pnl, pos=(5, 260), size=(200, 25))
+
+
+            hbox2 = wx.BoxSizer(wx.HORIZONTAL)
+            okButton = wx.Button(trx_drg, wx.ID_OK)
+            hbox2.Add(okButton)
+
+            vbox.Add(pnl, proportion=1, flag=wx.ALL | wx.EXPAND, border=5)
+            vbox.Add(hbox2, flag=wx.ALIGN_CENTER|wx.TOP|wx.BOTTOM, border=10)
+
+            trx_drg.SetSizer(vbox)
+
+            if trx_drg.ShowModal() == wx.ID_OK:
+                from SeChainController import FunctionAPIs
+                contract_source = {'source': source_text.GetValue(), 'args': arg_text.GetValue()}
+                trx_json = FunctionAPIs.deply_contract(Property.myNode['public_key'],
+                                                                    Property.myNode['private_key'],
+                                                                    'CT',
+                                                                    receiver_text.GetValue(),
+                                                                    amount_text.GetValue(),
+                                                                    message_text.GetValue(),
+                                                                    contract_source)
+
+            trx_drg.Destroy()
+        else:
+            print "Node is not started, Start node first"
+            self.write_console("Node is not started, Start node first")
+

@@ -1,4 +1,5 @@
 from socket import *
+import traceback
 
 
 def start(thread_name, ip_address, port):
@@ -20,11 +21,12 @@ def start(thread_name, ip_address, port):
 
         while True:
             data = receive_socket.recv(buf_size)
-            if not data == "":
-                print "Receiving " + data
             sync_flag = False
             try:
                 data_entity = json.loads(data)
+                if not data == "":
+                    print "Receiving " + data_entity['type'] + " from " + data_entity['ip_address']
+
                 if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip
 
@@ -80,6 +82,7 @@ def start(thread_name, ip_address, port):
                             "ip_address": data_entity['ip_address']
                         }
                         json_dump = json.dumps(json_data)
+                        print 'Sending block sync complete message to ' + data_entity['ip_address']
                         Sender.send(data_entity['ip_address'], json_dump, port)
 
                     # blocks are not synchronized
@@ -98,9 +101,9 @@ def start(thread_name, ip_address, port):
                                         'file_name': file,
                                         'message': mess
                                     }
-                                    print 'Sending block #' + file
                                     f.close()
                                     datas = json.dumps(write_file)
+                                    print 'Sending block to ' + data_entity['ip_address']
                                     Sender.send(data_entity['ip_address'], datas, port)
 
                         fin_message = {
@@ -109,32 +112,31 @@ def start(thread_name, ip_address, port):
                         }
 
                         fin_json_message = json.dumps(fin_message)
+                        print 'Sending block sync complete message to ' + data_entity['ip_address']
                         Sender.send(data_entity['ip_address'], fin_json_message, port)
                         break
 
                 elif data_entity['type'] == 'RN':
-                    try:
-                        node_list = FileController.get_node_list()
-                        for n in node_list:
-                            json_data = {
-                                'type': 'N',
-                                'message' : n
-                            }
-                            json_dump = json.dumps(json_data)
-                            Sender.send(data_entity['ip_address'], json_dump, port)
-
-                        fin_data = {
-                            'type': 'QN',
+                    node_list = FileController.get_node_list()
+                    for n in node_list:
+                        json_data = {
+                            'type': 'N',
+                            'message' : n
                         }
-                        fin_dump = json.dumps(fin_data)
-                        Sender.send(data_entity['ip_address'], fin_dump, port)
-                        break
-                    except:
-                        print sys.exc_info()
-                        break
+                        json_dump = json.dumps(json_data)
+                        print 'Sending node information to ' + data_entity['ip_address']
+                        Sender.send(data_entity['ip_address'], json_dump, port)
+
+                    fin_data = {
+                        'type': 'QN',
+                    }
+                    fin_dump = json.dumps(fin_data)
+                    print 'Sending node info sync complete message to ' + data_entity['ip_address']
+                    Sender.send(data_entity['ip_address'], fin_dump, port)
+                    break
 
             except:
-                print sys.exc_info()
+                traceback.print_exc()
                 break
 
     tcp_socket.close()

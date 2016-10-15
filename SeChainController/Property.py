@@ -8,6 +8,7 @@ block_sync = False
 port = 10654
 ui_frame = None
 node_started = False
+max_transaction = 0
 
 # type direction
 # C: request last block

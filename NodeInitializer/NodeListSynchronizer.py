@@ -2,7 +2,7 @@ from SeChainController import Property
 from NodeManager import NodeController
 from CommunicationManager import Sender
 from StorageManager import FileController
-import json, sys
+import json, sys, traceback
 from socket import *
 
 
@@ -20,7 +20,6 @@ def request_node_list():
         'type': 'RN',
         'ip_address': json_node['ip_address']
     }
-
     new_json_node = json.dumps(json_nodes)
     Sender.send(trust_node_ip, new_json_node, Property.port)
 
@@ -40,20 +39,21 @@ def receive_node_list(*args):
         # data : request sync node  ip address
         while True:
             data = receive_socket.recv(buf_size)
-            if not data == "":
-                print "Receiving "+data
             try:
+                if data == "":
+                    break
                 data_entity = json.loads(data)
+                print "Receiving " + data_entity['type']
+
                 if data_entity['type'] == 'QN':
                     print 'Node list sync complete'
                     Property.node_sync = True
                     break
 
                 elif data_entity['type'] == 'N':
-                    print 'Node info received'
                     NodeController.add_new_node(json.loads(data_entity['message']))
             except :
-                print sys.exc_info()
+                traceback.print_exc()
                 break
 
         if(Property.node_sync == True) :
