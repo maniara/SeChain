@@ -1,6 +1,10 @@
-* install modules
+* install modules in Windows
 
 wspython for ui : pip.exe install --upgrade  --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
+json : pip install simplejson
+compatibility python 2/3 : pip install future
+install visual C+ compiler for python : https://www.microsoft.com/en-gb/download/details.aspx?id=44266
+cryptography : pip install pycrypto
 
 * message type code
 # C: request last block
