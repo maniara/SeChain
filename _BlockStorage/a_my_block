@@ -1,11 +1,13 @@
 {
-    "block_id": "B20161018220627", 
-    "contract_states": {}, 
-    "previous_block_hash": "0066cfa13746b91abee3b04690cdf500bef63e93a839f38c72edc920d26ccea5", 
-    "previous_block_id": "B20161018220608", 
-    "time_stamp": "20161018220627", 
+    "block_id": "B20161018221309", 
+    "contract_states": {
+        "C20161018221244": "ccopy_reg\n_reconstructor\np0\n(cSmartContractManager.Sources.Addition\nContract\np1\nc__builtin__\nobject\np2\nNtp3\nRp4\n(dp5\nS'a'\np6\nI8\nsb."
+    }, 
+    "previous_block_hash": "8711abeaf51bfeff716c103c7484415da9a0abe43e939ea65ae7fe17512c039b", 
+    "previous_block_id": "B20161018221039", 
+    "time_stamp": "20161018221309", 
     "transactions": [
-        "{\"contract_data\": {\"source\": \"Addition\", \"args\": \"3\"}, \"type\": \"CT\", \"data\": {\"sender_ip\": \"163.239.200.11\", \"amount\": \"\", \"message\": \"\", \"receiver_ip\": \"\"}, \"sender_public_key\": {\"exponent\": 8509003131138877899812248560451421232851099984328030626076614571140936131874505330872104098692511812067711709086127521309814421656233470443880427914231, \"modulus\": 31699639902281410429915566276572206080391723575527928622939395306050392948226733535036784964762219159229632578909970102180567649931556940780241416696607}, \"time_stamp\": \"20161018220627\", \"message\": \"\\\\x0c\\\\xbfq`\\\\x05Nod.\\\\x81\\\\x84\\\\xc8\\\\xce88\\\\xd3B\\\\xce\\\\x1azj\\\\xe8:\\\\xebd\\\\x92\\\\r\\\\x07(\\\\xf8+&\\\\xa1\\\\xe8X\\\\xf5)`rb\\\\x89N\\\\xac\\\\x81\\\\x19\\\\xa6\\\\xf1\\\\x1a\\\\x91\\\\xe5|Hv\\\\x81srw\\\\xbe\\\\\\\\`\\\\x8d\\\\x83\\\\x98\\\\x85o\\\\x12DV\\\\xd3\\\\x15\\\\xfdu\\\\x98k;\\\\x8e\\\\x06\\\\x7f\\\\xfa8fr?\\\\x87\\\\xa6)\\\\xaee\\\\xbc\\\\xf7\\\\xf4\\\\x18(\\\\xcd\\\\xbc@\\\\x03\\\\x94\\\\x9d\\\\x82\\\\x03z \\\\x0c\\\\x8c\\\\x18xc\\\\xcf+\\\\x16\\\\x9f\\\\xde\\\\x8b\\\\xcdn&F\\\\x1b4\\\\x8e\\\\xb0\\\\xceh\\\\x84_\", \"ip_address\": \"163.239.200.11\"}\n"
+        "{\"contract_data\": {\"function\": \"add\", \"args\": \"5\", \"contractAddr\": \"C20161018221244\"}, \"type\": \"RT\", \"data\": {\"sender_ip\": \"163.239.200.11\", \"amount\": \"\", \"message\": \"\", \"receiver_ip\": \"\"}, \"sender_public_key\": {\"modulus\": 6963082219550255077792943377287583687748310252928673476139467630161409588372321228913372246028611283579849094642346679154701937761346071209222851619852933, \"exponent\": 3233154736136079896302067063925417240623425435486433837824191931788807957802209796588438215109820766385790690907023898266998972246713112709326845525244943}, \"time_stamp\": \"20161018221309\", \"message\": \"a&\\\\x15+\\\\x0b\\\\x1di}\\\\xaf]\\\\r\\\\xa6\\\\xac\\\\x01\\\\x84\\\\x98!\\\\x8d\\\\xb9\\\\x07\\\\xdc\\\\xa4x\\\\x0c\\\\x0c[4|\\\\x93\\\\xea\\\\xb0\\\\xa7\\\\xcfy\\\\xc6t3\\\\x98\\\\x95\\\\xfd)\\\\xebo\\\\x86E\\\\xd4\\\\xac\\\\xff\\\\xd8\\\\xfe\\\\x980:\\\\xa1\\\\x18\\\\xcf\\\\xc8\\\\x8d\\\\xb2\\\\x80X\\\\xb6_L]78\\\\xb2\\\\x1d\\\\x8c\\\\xb4k\\\\xd0\\\\xc1\\\\xa0\\\\xcb?NS\\\\x9f\\\\xfdI\\\\xbb\\\\xb1\\\\x8b}\\\\xea\\\\x88v\\\\xbfx\\\\xbf\\\\xab\\\\xfc\\\\xcc\\\\x8aah\\\\x13X\\\\xc5\\\\xaf\\\\xcdaUA;\\\\x1b\\\\xdf\\\\xfa\\\\x1c\\\\x97F\\\\xf4\\\\x8c\\\\xad\\\\xea\\\\xc1\\\\xcf\\\\xb3\\\\xae\\\\xaf\\\\xfb\\\\xaa\\\\x17\\\\x15\\\\x9d\\\\r\", \"ip_address\": \"163.239.200.11\"}\n"
     ], 
     "type": "B"
 }
