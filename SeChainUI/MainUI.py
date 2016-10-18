@@ -153,7 +153,7 @@ class MainFrame(wx.Frame):
 
     def deploy_contract(self, event):
         if (Property.node_started == True):
-            trx_drg = wx.Dialog(None, title='Sending Transaction')
+            trx_drg = wx.Dialog(None, title='Deploying Contract')
             trx_drg.SetSize((500, 400))
             trx_drg.SetTitle('Sending Transaction')
 
@@ -184,7 +184,7 @@ class MainFrame(wx.Frame):
             if trx_drg.ShowModal() == wx.ID_OK:
                 from SeChainController import FunctionAPIs
                 contract_source = {'source': source_text.GetValue(), 'args': arg_text.GetValue()}
-                trx_json = FunctionAPIs.deply_contract(Property.myNode['public_key'],
+                trx_json = FunctionAPIs.deploy_contract(Property.myNode['public_key'],
                                                                     Property.myNode['private_key'],
                                                                     'CT',
                                                                     receiver_text.GetValue(),
@@ -200,7 +200,7 @@ class MainFrame(wx.Frame):
 
     def run_contract(self, event):
         if (Property.node_started == True):
-            trx_drg = wx.Dialog(None, title='Sending Transaction')
+            trx_drg = wx.Dialog(None, title='Run Contract')
             trx_drg.SetSize((500, 450))
             trx_drg.SetTitle('Sending Transaction')
 
@@ -229,12 +229,11 @@ class MainFrame(wx.Frame):
 
             trx_drg.SetSizer(vbox)
 
-            contract_data = {'contractAddr': address_text.GetValue(),
-                             'function': function_text.GetValue(),
-                             'args': arg_text.GetValue()}
-
             if trx_drg.ShowModal() == wx.ID_OK:
                 from SeChainController import FunctionAPIs
+                contract_data = {'contractAddr': address_text.GetValue(),
+                                 'function': function_text.GetValue(),
+                                 'args': arg_text.GetValue()}
                 trx_json = FunctionAPIs.run_contract(Property.myNode['public_key'],
                                                      Property.myNode['private_key'],
                                                      'RT',

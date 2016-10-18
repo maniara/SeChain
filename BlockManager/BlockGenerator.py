@@ -1,6 +1,15 @@
 def check_status():
     return False
 
+def check_block_generation_condition():
+    from StorageManager import FileController
+    from SeChainController import Property
+
+    if FileController.get_number_of_transactions() >= Property.max_transaction:
+        return True
+    return False
+
+
 def generate_block(last_transaction):
     from BlockManager import Block
     from StorageManager import FileController

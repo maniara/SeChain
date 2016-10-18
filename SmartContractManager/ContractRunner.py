@@ -12,22 +12,22 @@ SOURCE_ADDR = "SmartContractManager.Sources."
 #Need to exist sources all node
 def makeContract(time_stamp,sourceName,args):
     contract  = getattr(importlib.import_module(SOURCE_ADDR+sourceName),'Contract')(*args)
-    contractAddr = time_stamp
-    fContract = open(CONTRACT_ADDR +"C"+contractAddr,'wb')
-    print contractAddr
+    contractAddr = "C"+time_stamp
+    fContract = open(CONTRACT_ADDR + contractAddr, 'wb')
     #serialize and write
     pickle.dump(contract,fContract)
     fContract.close()
-    fContract = open(CONTRACT_ADDR +"C"+contractAddr,'rb')
+    fContract = open(CONTRACT_ADDR + contractAddr, 'rb')
     state = fContract.read()
     fContract.close()
-    print 'Contract (' + contractAddr ,+ ') deployied'
+    print 'Contract (' + contractAddr + ') deploied'
     return {'contractAddr' :  contractAddr ,'state' : state}
 
 def run(contractAddr,functionName,args):
 
     #load states & run
     contractAddress = CONTRACT_ADDR+contractAddr
+    print contractAddress
     fContract = open(contractAddress,'r')
     contract = pickle.load(fContract)
     print 'Contract loaded'
@@ -43,7 +43,7 @@ def run(contractAddr,functionName,args):
     fContract = open(contractAddress,'r')
     state = fContract.read()
     fContract.close()
-    print {'result' : result,'state' : state}
+    print 'Contract run : result : ' + str(result)
     return {'result' : result,'state' : state}
 
 #makeContract('aaaaa','aaa',(1,2))
