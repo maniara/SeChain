@@ -1,13 +1,13 @@
 {
-    "block_id": "B20161018221309", 
+    "block_id": "B20161019094759", 
     "contract_states": {
-        "C20161018221244": "ccopy_reg\n_reconstructor\np0\n(cSmartContractManager.Sources.Addition\nContract\np1\nc__builtin__\nobject\np2\nNtp3\nRp4\n(dp5\nS'a'\np6\nI8\nsb."
+        "C20161019094547": "ccopy_reg\n_reconstructor\np0\n(cSmartContractManager.Sources.Addition\nContract\np1\nc__builtin__\nobject\np2\nNtp3\nRp4\n(dp5\nS'a'\np6\nI10\nsb."
     }, 
-    "previous_block_hash": "8711abeaf51bfeff716c103c7484415da9a0abe43e939ea65ae7fe17512c039b", 
-    "previous_block_id": "B20161018221039", 
-    "time_stamp": "20161018221309", 
+    "previous_block_hash": "dc014c132eb99ccb0e731de1e589949a71a34e1e67a405ebe748478e15cab83c", 
+    "previous_block_id": "B20161019094218", 
+    "time_stamp": "20161019094759", 
     "transactions": [
-        "{\"contract_data\": {\"function\": \"add\", \"args\": \"5\", \"contractAddr\": \"C20161018221244\"}, \"type\": \"RT\", \"data\": {\"sender_ip\": \"163.239.200.11\", \"amount\": \"\", \"message\": \"\", \"receiver_ip\": \"\"}, \"sender_public_key\": {\"modulus\": 6963082219550255077792943377287583687748310252928673476139467630161409588372321228913372246028611283579849094642346679154701937761346071209222851619852933, \"exponent\": 3233154736136079896302067063925417240623425435486433837824191931788807957802209796588438215109820766385790690907023898266998972246713112709326845525244943}, \"time_stamp\": \"20161018221309\", \"message\": \"a&\\\\x15+\\\\x0b\\\\x1di}\\\\xaf]\\\\r\\\\xa6\\\\xac\\\\x01\\\\x84\\\\x98!\\\\x8d\\\\xb9\\\\x07\\\\xdc\\\\xa4x\\\\x0c\\\\x0c[4|\\\\x93\\\\xea\\\\xb0\\\\xa7\\\\xcfy\\\\xc6t3\\\\x98\\\\x95\\\\xfd)\\\\xebo\\\\x86E\\\\xd4\\\\xac\\\\xff\\\\xd8\\\\xfe\\\\x980:\\\\xa1\\\\x18\\\\xcf\\\\xc8\\\\x8d\\\\xb2\\\\x80X\\\\xb6_L]78\\\\xb2\\\\x1d\\\\x8c\\\\xb4k\\\\xd0\\\\xc1\\\\xa0\\\\xcb?NS\\\\x9f\\\\xfdI\\\\xbb\\\\xb1\\\\x8b}\\\\xea\\\\x88v\\\\xbfx\\\\xbf\\\\xab\\\\xfc\\\\xcc\\\\x8aah\\\\x13X\\\\xc5\\\\xaf\\\\xcdaUA;\\\\x1b\\\\xdf\\\\xfa\\\\x1c\\\\x97F\\\\xf4\\\\x8c\\\\xad\\\\xea\\\\xc1\\\\xcf\\\\xb3\\\\xae\\\\xaf\\\\xfb\\\\xaa\\\\x17\\\\x15\\\\x9d\\\\r\", \"ip_address\": \"163.239.200.11\"}\n"
+        "{\"contract_data\": {\"function\": \"add\", \"args\": \"2\", \"contractAddr\": \"C20161019094547\"}, \"type\": \"RT\", \"data\": {\"sender_ip\": \"163.239.200.11\", \"amount\": \"\", \"message\": \"\", \"receiver_ip\": \"\"}, \"sender_public_key\": {\"modulus\": 6963082219550255077792943377287583687748310252928673476139467630161409588372321228913372246028611283579849094642346679154701937761346071209222851619852933, \"exponent\": 3233154736136079896302067063925417240623425435486433837824191931788807957802209796588438215109820766385790690907023898266998972246713112709326845525244943}, \"time_stamp\": \"20161019094759\", \"message\": \"a&\\\\x15+\\\\x0b\\\\x1di}\\\\xaf]\\\\r\\\\xa6\\\\xac\\\\x01\\\\x84\\\\x98!\\\\x8d\\\\xb9\\\\x07\\\\xdc\\\\xa4x\\\\x0c\\\\x0c[4|\\\\x93\\\\xea\\\\xb0\\\\xa7\\\\xcfy\\\\xc6t3\\\\x98\\\\x95\\\\xfd)\\\\xebo\\\\x86E\\\\xd4\\\\xac\\\\xff\\\\xd8\\\\xfe\\\\x980:\\\\xa1\\\\x18\\\\xcf\\\\xc8\\\\x8d\\\\xb2\\\\x80X\\\\xb6_L]78\\\\xb2\\\\x1d\\\\x8c\\\\xb4k\\\\xd0\\\\xc1\\\\xa0\\\\xcb?NS\\\\x9f\\\\xfdI\\\\xbb\\\\xb1\\\\x8b}\\\\xea\\\\x88v\\\\xbfx\\\\xbf\\\\xab\\\\xfc\\\\xcc\\\\x8aah\\\\x13X\\\\xc5\\\\xaf\\\\xcdaUA;\\\\x1b\\\\xdf\\\\xfa\\\\x1c\\\\x97F\\\\xf4\\\\x8c\\\\xad\\\\xea\\\\xc1\\\\xcf\\\\xb3\\\\xae\\\\xaf\\\\xfb\\\\xaa\\\\x17\\\\x15\\\\x9d\\\\r\", \"ip_address\": \"163.239.200.11\"}\n"
     ], 
     "type": "B"
 }
