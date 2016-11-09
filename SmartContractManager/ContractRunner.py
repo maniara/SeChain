@@ -38,7 +38,7 @@ def run(contractAddr,functionName,args):
 
     #save state
     fContract = open(contractAddress,'w')
-    pickle.dump(contract,fContract)
+    pickle.dump(contract, fContract)
     fContract.close()
     fContract = open(contractAddress,'r')
     state = fContract.read()

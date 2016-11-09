@@ -56,7 +56,7 @@ class MainController(object):
         MainUI.MainFrame.write_console(Property.ui_frame, "Broadcast my node information")
         NodeController.add_new_node(Property.myNode)
         if Property.my_ip_address != Property.trust_node_ip:
-            NodeController.send_my_node_info(Property.my_node_json)
+            NodeController.send_my_node_info(Property.myNode['ip_address'], Property.myNode['public_key'])
 
         #node listener start
         Property.nodeList = FileController.get_node_list()

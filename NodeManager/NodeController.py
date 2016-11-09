@@ -28,10 +28,6 @@ def get_node():
         }
         new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
 
-        #Dont need to regist my nodelocal file
-        #file_path = os.path.dirname(os.path.dirname(__file__)) + '\DataBase' + '\\'
-        #path_info = file_path + '\NodeInfo.txt'
-        #FileController.write(path_info, new_json_node)
         return json_node, new_json_node
 
     # Node exist
@@ -41,12 +37,21 @@ def get_node():
         existed_node_json = json.loads(existed_node)
         return existed_node_json, existed_node
 
-
-def send_my_node_info(my_node):
-    from SeChainController import Property
+'''
+node information: ip address, public key, type, is_disabled(redundant yet)
+'''
+def send_my_node_info(_ip, _public_key):
     from CommunicationManager import Sender
-    print "Sending node info to others"
-    Sender.send_to_all_node(my_node)
+    # json string -> json object
+    json_node = {
+        'type': 'N',
+        'is_disabled': False,
+        'public_key': _public_key,
+        'ip_address': _ip
+    }
+    send_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder_send)
+
+    Sender.send_to_all_node(send_json_node)
 
 
 def add_new_node(node_info_entity):
