@@ -56,7 +56,7 @@ def receive_node_list(*args):
                 traceback.print_exc()
                 break
 
-        if(Property.node_sync == True) :
+        if Property.node_sync == True:
             tcp_socket.close()
             receive_socket.close()
             break

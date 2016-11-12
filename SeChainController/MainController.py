@@ -7,24 +7,24 @@ class MainController(object):
         return 0
 
     @staticmethod
-    def initiate_node():
-        import thread, time
-        from StorageManager import FileController
-        from CommunicationManager import Receiver
+    def initiate_node(*args):
+
         from NodeInitializer import NodeListSynchronizer
-        from BlockManager import BlockGenerator
+
         from NodeInitializer import BlockSynchronizer
-        from CommunicationManager import Sender
+
         from SeChainUI import MainUI
 
         # sync blocks
         MainUI.MainFrame.write_console(Property.ui_frame, "Blocks are synchronizing now")
         BlockSynchronizer.sync_blocks()
-
+        #
         while(True):
            if(Property.block_sync == True):
                 break
+
         MainUI.MainFrame.write_console(Property.ui_frame, "Blocks are synchronized")
+
 
         # sync node list
         MainUI.MainFrame.write_console(Property.ui_frame, "Downloading node list")
@@ -36,8 +36,8 @@ class MainController(object):
 
         # start node
         MainController.node_start()
-        #time.sleep(3)
-        #MainController.command_control()
+        MainUI.MainFrame.write_console(Property.ui_frame, "Node Start")
+
 
     @staticmethod
     def node_start():
@@ -46,17 +46,32 @@ class MainController(object):
         from StorageManager import FileController
         from CommunicationManager import Receiver
         from SeChainUI import MainUI
+        from CommunicationManager import ConnectionChecker
 
         #my node check
         MainController.set_my_node()
         print ("Have got node information")
         MainUI.MainFrame.write_console(Property.ui_frame, "Have got node information")
 
+
+        '''
+            2016/11/11
+            connection check point
+            find out the alive nodes through ping test
+        '''
+        ping = ConnectionChecker.Pinger()
+        ping.thread_count = 8
+        ping.hosts = FileController.get_ip_list()
+        Property.alive_nodes = ping.start()
+
+
+
         # broadcast my node to all others and local if this is not the trust node
         MainUI.MainFrame.write_console(Property.ui_frame, "Broadcast my node information")
+        print Property.alive_nodes
         NodeController.add_new_node(Property.myNode)
         if Property.my_ip_address != Property.trust_node_ip:
-            NodeController.send_my_node_info(Property.myNode['ip_address'], Property.myNode['public_key'])
+            NodeController.send_my_node_info(Property.myNode['ip_address'])
 
         #node listener start
         Property.nodeList = FileController.get_node_list()
@@ -173,4 +188,4 @@ def makeTransaction(tx_type,receiver_ip,amount,message,contract_datas):
 
 
 '''
-#MainController.start()
+

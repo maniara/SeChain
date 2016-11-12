@@ -1,19 +1,65 @@
-import socket
-from MainController import NodeInformation
+import os
+import subprocess
+import threading
 
-# data sync thread port = 50007
-# If node is on-line , return True
-# If node is off-line, return False
-def connection_check(ip_address):
-    PORT = NodeInformation.port
-    sck = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+'''
+    2016/11/12
+    ping test
+    using thread pool & run as daemon
+'''
 
-    try:
-        sck.connect((ip_address, PORT))
-        sck.settimeout(1.0)
-        # sck.shutdown(3)
-        sck.close()
-        return True
-    except socket.error as e:
-        print e
-        return False
+
+class Pinger(object):
+    status = {'alive': [], 'dead': []}
+    hosts = []
+
+    thread_count = 10
+
+    lock = threading.Lock()
+
+    '''
+        return 0 if ping test is successful
+    '''
+    def ping(self, ip):
+        ret = subprocess.call(['ping', '-n', '1', ip],
+                              stdout=open(os.devnull, 'w'), stderr=open(os.devnull, 'w'))
+
+        return ret == 0
+
+    def pop_queue(self):
+        ip = None
+
+        self.lock.acquire()
+
+        if self.hosts:
+            ip = self.hosts.pop()
+
+        self.lock.release()
+        return ip
+
+    def dequeue(self):
+        while True:
+            ip = self.pop_queue()
+
+            if not ip:
+                return None
+
+            result = 'alive' if self.ping(ip) else 'dead'
+            self.status[result].append(ip)
+
+    '''
+        start thread pool
+        blocking method
+    '''
+    def start(self):
+        threads = []
+
+        for i in range(self.thread_count):
+            t = threading.Thread(target=self.dequeue)
+            t.setDaemon(True)
+            t.start()
+            threads.append(t)
+
+        [t.join() for t in threads]
+
+        return self.status

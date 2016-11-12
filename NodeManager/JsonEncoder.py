@@ -4,9 +4,6 @@ class json_encoder(json.JSONEncoder):
     def encode(self, obj):
         obj['type'] = str(obj['type'])
         obj['ip_address'] = str(obj['ip_address'])
-        obj['public_key'] = obj['public_key']._asdict()
-        obj['private_key'] = obj['private_key']._asdict()
-        obj['is_disabled'] = str(obj['is_disabled'])
 
         return super(json_encoder, self).encode(obj)
 
@@ -14,9 +11,7 @@ class json_encoder(json.JSONEncoder):
 class json_encoder_send(json.JSONEncoder):
     def encode(self, obj):
         obj['type'] = str(obj['type'])
-        obj['is_disabled'] = str(obj['is_disabled'])
         obj['ip_address'] = str(obj['ip_address'])
-        obj['public_key'] = obj['public_key']
 
         return super(json_encoder_send, self).encode(obj)
 

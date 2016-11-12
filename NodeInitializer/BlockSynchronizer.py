@@ -16,14 +16,13 @@ def request_block_sync():
     from NodeManager import NodeController
     from StorageManager import FileController
     import json
-    import socket
 
     trust_node_ip = Property.trust_node_ip
     json_node, new_json_nodes = NodeController.get_node()
     last_file = FileController.get_last_file()
     json_nodes = {
         'type': 'C',
-        'last_file' : last_file,
+        'last_file': last_file,
         'ip_address': json_node['ip_address']
     }
     new_json_node = json.dumps(json_nodes)
@@ -31,7 +30,6 @@ def request_block_sync():
 
 
 def receive_block_for_sync(*args):
-    from CommunicationManager import Sender
     from StorageManager import FileController
 
 
@@ -71,7 +69,7 @@ def receive_block_for_sync(*args):
                 traceback.print_exc()
                 break
 
-        if(Property.block_sync == True) :
+        if Property.block_sync == True:
             receive_socket.close()
             tcp_socket.close()
             break

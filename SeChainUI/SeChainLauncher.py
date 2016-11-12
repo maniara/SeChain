@@ -1,5 +1,9 @@
 import wx
+import threading
 from SeChainUI.MainUI import MainApp
 
 app = MainApp(0)
-app.MainLoop()
+t = threading.Thread(target=app.MainLoop())
+t.setDaemon(1)
+t.start()
+# app.MainLoop()

@@ -13,17 +13,24 @@ def get_node():
     if FileController.get_node() is False:
         print "Joining SeChain"
 
-        gen_public_key, gen_private_key = generation_key_pair(2**256)
+
+
+        '''
+
+            need to change -> Ecdsa key pair
+        '''
+        gen_public_key, gen_private_key = generation_key_pair(2 ** 256)
 
         node = Node.Node(Property.my_ip_address)
         node.public_key = gen_public_key
         node.private_key = gen_private_key
 
+        '''
+            Date: 2016/11/11
+            remove redundancy field
+        '''
         json_node = {
             'type' : 'N',
-            'is_disabled' : False,
-            'public_key' : node.public_key,
-            'private_key' : node.private_key,
             'ip_address' : node.ip_address
         }
         new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
@@ -40,13 +47,11 @@ def get_node():
 '''
 node information: ip address, public key, type, is_disabled(redundant yet)
 '''
-def send_my_node_info(_ip, _public_key):
+def send_my_node_info(_ip):
     from CommunicationManager import Sender
     # json string -> json object
     json_node = {
         'type': 'N',
-        'is_disabled': False,
-        'public_key': _public_key,
         'ip_address': _ip
     }
     send_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder_send)
