@@ -83,3 +83,8 @@ def key_to_str(key):
 
 def str_to_key(keystr):
     return Key(*(int(number, 16) for number in keystr.split(':')))
+
+
+if __name__ == '__main__':
+    t1, t2 = generation_key_pair(2 ** 256)
+    print (type(t1))

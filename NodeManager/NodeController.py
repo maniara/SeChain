@@ -31,7 +31,9 @@ def get_node():
         '''
         json_node = {
             'type' : 'N',
-            'ip_address' : node.ip_address
+            'ip_address' : node.ip_address,
+            'public_key' : node.public_key,
+            'private_key' : node.private_key
         }
         new_json_node = json.dumps(json_node, cls=JsonEncoder.json_encoder)
 

@@ -2,6 +2,10 @@ from ecdsa import SigningKey, NIST256p, VerifyingKey
 from ecdsa.util import PRNG
 from SeChainController import Property
 
+'''
+    key generation seed = ip address
+'''
+
 
 def get_seed():
     return Property.my_ip_address
@@ -39,10 +43,11 @@ def perform_sha256(message):
 '''
     2016/11/15
     module test
-    need base58check encoding
 '''
 if __name__ == '__main__':
     import sys, hashlib
+    import base58
+
     sk1, sk2 = generate_pri_key()
     pk1, pk2 = generate_pub_key(sk2)
     hashed = perform_sha256(pk1)
@@ -53,6 +58,15 @@ if __name__ == '__main__':
 
     address_before_encode = version_added + hashed2[:8]
 
+    convert_address = str(bytearray.fromhex(address_before_encode))
+    address_after_encode = base58.b58encode(convert_address)
+
+    msg = "msgtest"
+    t = sk2.sign(msg)
+    print t
+    u = pk2.verify(t, msg)
+    print u
+
 
     print sk1," ", sk2," ", sys.getsizeof(sk1)
     print pk1," ", pk2," ", sys.getsizeof(pk1)
@@ -61,4 +75,6 @@ if __name__ == '__main__':
     print version_added
     print hashed2, " ", sys.getsizeof(hashed2), " ", len(hashed2)
     print "checksum is ", hashed2[:8]
+
     print address_before_encode
+    print address_after_encode, type(address_after_encode)
