@@ -21,7 +21,7 @@ class MainFrame(wx.Frame):
 
 
     def drow_frame(self, parent, id, title):
-        wx.Frame.__init__(self, parent, id, title, wx.DefaultPosition, wx.Size(1000, 1000))
+        wx.Frame.__init__(self, parent, id, title, wx.DefaultPosition, wx.Size(700, 350))
 
         vbox = wx.BoxSizer(wx.VERTICAL)
 
@@ -63,7 +63,7 @@ class MainFrame(wx.Frame):
         trust_node_box.Add(trust_node_text, 0, wx.EXPAND)
 
         trust_node_button = wx.Button(self, 1, '1. Set Trust Node')
-        trust_node_box.Add(trust_node_button, 0, wx.EXPAND)
+        trust_node_box.Add(trust_node_button, 1, wx.EXPAND)
         vbox.Add(trust_node_box, 0, wx.EXPAND)
         self.Bind(wx.EVT_BUTTON, self.set_trust_node, id=1)
 
