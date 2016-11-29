@@ -40,7 +40,6 @@ def receive_block_for_sync(*args):
     tcp_socket = socket(AF_INET, SOCK_STREAM)
     tcp_socket.bind(addr)
     tcp_socket.listen(5)
-    #print "Block Receiver is started"
 
     while True:
         receive_socket, sender_ip = tcp_socket.accept()
@@ -69,7 +68,7 @@ def receive_block_for_sync(*args):
                 traceback.print_exc()
                 break
 
-        if Property.block_sync == True:
+        if Property.block_sync is True:
             receive_socket.close()
             tcp_socket.close()
             break

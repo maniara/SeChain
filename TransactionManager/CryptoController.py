@@ -64,7 +64,7 @@ Key = namedtuple('Key', 'exponent modulus')
 # Blockchain
 # encrypt with private key
 
-def dataEncode(msg, privateKey, verbose=False):
+def data_encode(msg, privateKey, verbose=False):
     chunkSize = int(log(privateKey['modulus'], 256))
     outChunk = chunkSize + 1
     outFmt = '%%0%dx' % (outChunk * 2, )
@@ -85,7 +85,7 @@ def dataEncode(msg, privateKey, verbose=False):
     return b''.join(result)
 
 
-def dataDecode(bcipher, publicKey, verbose=False):
+def data_decode(bcipher, publicKey, verbose=False):
     chunkSize = int(log(publicKey['modulus'], 256))
     outChunk = chunkSize + 1
     outFmt = '%%0%dx' % (chunkSize * 2, )

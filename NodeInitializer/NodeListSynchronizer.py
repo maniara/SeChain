@@ -1,17 +1,17 @@
 from SeChainController import Property
 from NodeManager import NodeController
 from CommunicationManager import Sender
-from StorageManager import FileController
-import json, sys, traceback
+import json, traceback
 from socket import *
 
 
-#sending node list in trust node is implemented in Receiver.py
+# sending node list in trust node is implemented in Receiver.py
 def download_node_list(my_node):
     import thread
 
     thread.start_new_thread(receive_node_list, ("Node List Receiver", 1))
     request_node_list()
+
 
 def request_node_list():
     trust_node_ip = Property.trust_node_ip
@@ -25,6 +25,8 @@ def request_node_list():
 
 
 def receive_node_list(*args):
+    from StorageManager import NodeInfoDB
+    from SeChainController import Property
     addr = (Property.my_ip_address, Property.port)
     buf_size = 10000
 
@@ -51,12 +53,18 @@ def receive_node_list(*args):
                     break
 
                 elif data_entity['type'] == 'N':
-                    NodeController.add_new_node(json.loads(data_entity['message']))
+                    '''
+                        store node's ip address into NodeInfo.db
+                    '''
+                    NodeController.add_new_node(json.loads(data_entity['message'])) # file db
+                    received_node = json.loads(data_entity['message'])
+                    NodeInfoDB.insert_node_db(Property.NODE_IDX, received_node['ip_address']) # sqlite3
+                    Property.NODE_IDX += 1
             except :
                 traceback.print_exc()
                 break
 
-        if Property.node_sync == True:
+        if Property.node_sync is True:
             tcp_socket.close()
             receive_socket.close()
             break

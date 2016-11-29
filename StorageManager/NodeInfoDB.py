@@ -1,7 +1,8 @@
 import sqlite3
 from SeChainController import Property
 
-path = Property.NODE_DB_PATH + 'nodeinfo.db'
+path = Property.DB_PATH + 'nodeinfo.db'
+
 
 def create_nodeinfo_table():
     con = sqlite3.connect(path)

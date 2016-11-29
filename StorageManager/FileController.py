@@ -59,6 +59,7 @@ def get_node():
     from SeChainController import Property
 
     node_list = get_node_list()
+
     if len(node_list) == 0:
         return False
 

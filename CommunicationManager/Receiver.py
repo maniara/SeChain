@@ -3,9 +3,12 @@ import traceback
 
 
 def start(thread_name, ip_address, port):
-    import json, sys, time
+    import json
+    import time
+    import sys
     from StorageManager import FileController
     from SeChainController import Property
+    from StorageManager import utxoDB
 
     addr = (ip_address, port)
     buf_size = 10000
@@ -31,6 +34,12 @@ def start(thread_name, ip_address, port):
 
                 if data_entity['type'] == 't' or data_entity['type'] == 'ct' or  data_entity['type'] == 'rt':
                     print "\nTransaction received from ", sender_ip
+
+
+                    '''
+                        update UTXO db
+                    '''
+
 
                     FileController.add_transaction(data)
                     break
@@ -58,8 +67,14 @@ def start(thread_name, ip_address, port):
                 #When new block is received
                 elif data_entity['type'] == 'B':
                     from SmartContractManager import ContractManager
-                    print "Block received"
+
                     from BlockManager import BlockVerifier
+
+                    received_time = time.strftime('%Y%m%d%H%M%S', time.gmtime())
+                    block_size = sys.getsizeof(data_entity)
+                    print "Block received: "," ", received_time
+                    print "size :",  block_size
+
 
                     if BlockVerifier.verify(data_entity) is True:
                         FileController.remove_all_transactions()
