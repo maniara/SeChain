@@ -5,6 +5,7 @@ json : pip install simplejson
 compatibility python 2/3 : pip install future
 install visual C+ compiler for python : https://www.microsoft.com/en-gb/download/details.aspx?id=44266
 cryptography : pip install pycrypto
+ecdsa: pip install ecdsa
 
 * message type code
 # C: request last block
@@ -14,3 +15,4 @@ cryptography : pip install pycrypto
 # T: new transaction
 # CT : deploy smart contract
 $ RT : Run Smart Contract
+
